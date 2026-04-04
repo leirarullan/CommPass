@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { MessageCircle, X, Send } from "lucide-react";
-import ReactMarkdown from "react-markdown";
+import { getMockChatResponse } from "@/data/chatResponses";
 import { getMockChatResponse } from "@/data/chatResponses";
 
 interface Message {

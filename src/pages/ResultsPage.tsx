@@ -78,9 +78,9 @@ const ResultsPage = () => {
             </button>
           </div>
           {showExplanation && (
-            <div className="mt-6 p-5 bg-muted/50 rounded-xl prose prose-sm max-w-none text-foreground animate-fade-in">
-              <ReactMarkdown>{explanation}</ReactMarkdown>
-            </div>
+            <div className="mt-6 p-5 bg-muted/50 rounded-xl prose prose-sm max-w-none text-foreground animate-fade-in"
+              dangerouslySetInnerHTML={{ __html: explanation.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\n\n/g, '</p><p>').replace(/^/, '<p>').replace(/$/, '</p>') }}
+            />
           )}
         </section>
 
