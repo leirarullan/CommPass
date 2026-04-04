@@ -52,7 +52,7 @@ const ResultsPage = () => {
           <button onClick={() => navigate("/")} className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors">
             <ArrowLeft className="w-4 h-4" /> Back
           </button>
-          <h1 className="font-display text-xl text-foreground">Common Ground</h1>
+          <h1 className="font-display text-xl text-foreground">Comm<span className="text-primary">Pass</span></h1>
           <div className="w-16" />
         </div>
       </header>
