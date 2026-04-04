@@ -1,10 +1,8 @@
 import { useEffect, useRef } from "react";
 import L from "leaflet";
-import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import { type Resource, CATEGORY_ICONS } from "@/data/mockResources";
 
-// Fix default marker icon
 import markerIcon2x from "leaflet/dist/images/marker-icon-2x.png";
 import markerIcon from "leaflet/dist/images/marker-icon.png";
 import markerShadow from "leaflet/dist/images/marker-shadow.png";
@@ -26,12 +24,6 @@ function createIcon(category: string, isUCLinks?: boolean) {
   });
 }
 
-function RecenterMap({ center }: { center: [number, number] }) {
-  const map = useMap();
-  useEffect(() => { map.setView(center, 14); }, [center, map]);
-  return null;
-}
-
 interface Props {
   center: [number, number];
   resources: Resource[];
@@ -40,8 +32,51 @@ interface Props {
 }
 
 const ResourceMap = ({ center, resources, selected, onSelect }: Props) => {
+  const containerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<L.Map | null>(null);
+  const markersRef = useRef<L.LayerGroup | null>(null);
 
+  // Initialize map
+  useEffect(() => {
+    if (!containerRef.current || mapRef.current) return;
+    const map = L.map(containerRef.current).setView(center, 14);
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+    }).addTo(map);
+    mapRef.current = map;
+    markersRef.current = L.layerGroup().addTo(map);
+
+    return () => {
+      map.remove();
+      mapRef.current = null;
+      markersRef.current = null;
+    };
+  }, []);
+
+  // Recenter
+  useEffect(() => {
+    mapRef.current?.setView(center, 14);
+  }, [center]);
+
+  // Update markers
+  useEffect(() => {
+    if (!markersRef.current) return;
+    markersRef.current.clearLayers();
+    resources.forEach((r) => {
+      const marker = L.marker([r.lat, r.lng], { icon: createIcon(r.category, r.isUCLinks) })
+        .on("click", () => onSelect(r))
+        .bindPopup(`
+          <div style="font-family:sans-serif">
+            <strong>${r.name}</strong>
+            <p style="font-size:12px;margin:4px 0">${r.description}</p>
+            <a href="https://www.google.com/maps/dir/?api=1&destination=${r.lat},${r.lng}" target="_blank" rel="noreferrer" style="font-size:12px;color:#2563eb">Get Directions →</a>
+          </div>
+        `);
+      markersRef.current!.addLayer(marker);
+    });
+  }, [resources, onSelect]);
+
+  // Pan to selected
   useEffect(() => {
     if (selected && mapRef.current) {
       mapRef.current.setView([selected.lat, selected.lng], 15, { animate: true });
@@ -49,43 +84,11 @@ const ResourceMap = ({ center, resources, selected, onSelect }: Props) => {
   }, [selected]);
 
   return (
-    <div className="rounded-2xl overflow-hidden border border-border shadow-sm" style={{ height: "480px" }}>
-      <MapContainer
-        center={center}
-        zoom={14}
-        className="h-full w-full"
-        ref={mapRef}
-      >
-        <TileLayer
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        />
-        <RecenterMap center={center} />
-        {resources.map((r) => (
-          <Marker
-            key={r.id}
-            position={[r.lat, r.lng]}
-            icon={createIcon(r.category, r.isUCLinks)}
-            eventHandlers={{ click: () => onSelect(r) }}
-          >
-            <Popup>
-              <div className="font-sans">
-                <strong>{r.name}</strong>
-                <p className="text-xs mt-1">{r.description}</p>
-                <a
-                  href={`https://www.google.com/maps/dir/?api=1&destination=${r.lat},${r.lng}`}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="text-xs text-blue-600 mt-1 inline-block"
-                >
-                  Get Directions →
-                </a>
-              </div>
-            </Popup>
-          </Marker>
-        ))}
-      </MapContainer>
-    </div>
+    <div
+      ref={containerRef}
+      className="rounded-2xl overflow-hidden border border-border shadow-sm"
+      style={{ height: "480px" }}
+    />
   );
 };
 
