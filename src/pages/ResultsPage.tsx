@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { ArrowLeft, Sparkles } from "lucide-react";
-import ReactMarkdown from "react-markdown";
 import { getZipData, getResourcesForZip, generateCommunityExplanation, type Resource, type ResourceCategory } from "@/data/mockResources";
 import ResourceMap from "@/components/ResourceMap";
 import ResourceList from "@/components/ResourceList";
