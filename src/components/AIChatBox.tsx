@@ -1,6 +1,5 @@
 import { useState, useRef, useEffect } from "react";
 import { MessageCircle, X, Send } from "lucide-react";
-import ReactMarkdown from "react-markdown";
 import { getMockChatResponse } from "@/data/chatResponses";
 
 interface Message {
@@ -66,9 +65,9 @@ const AIChatBox = () => {
                     : "bg-muted text-foreground rounded-bl-md"
                 }`}>
                   {m.role === "assistant" ? (
-                    <div className="prose prose-sm max-w-none">
-                      <ReactMarkdown>{m.content}</ReactMarkdown>
-                    </div>
+                    <div className="prose prose-sm max-w-none"
+                      dangerouslySetInnerHTML={{ __html: m.content.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\n/g, '<br/>') }}
+                    />
                   ) : m.content}
                 </div>
               </div>

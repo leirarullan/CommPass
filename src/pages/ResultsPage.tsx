@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { ArrowLeft, Sparkles } from "lucide-react";
-import ReactMarkdown from "react-markdown";
 import { getZipData, getResourcesForZip, generateCommunityExplanation, type Resource, type ResourceCategory } from "@/data/mockResources";
 import ResourceMap from "@/components/ResourceMap";
 import ResourceList from "@/components/ResourceList";
@@ -79,9 +78,9 @@ const ResultsPage = () => {
             </button>
           </div>
           {showExplanation && (
-            <div className="mt-6 p-5 bg-muted/50 rounded-xl prose prose-sm max-w-none text-foreground animate-fade-in">
-              <ReactMarkdown>{explanation}</ReactMarkdown>
-            </div>
+            <div className="mt-6 p-5 bg-muted/50 rounded-xl prose prose-sm max-w-none text-foreground animate-fade-in"
+              dangerouslySetInnerHTML={{ __html: explanation.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\n\n/g, '</p><p>').replace(/^/, '<p>').replace(/$/, '</p>') }}
+            />
           )}
         </section>
 
