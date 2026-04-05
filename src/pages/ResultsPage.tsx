@@ -22,8 +22,11 @@ const ResultsPage = () => {
   const navigate = useNavigate();
   const data = getZipData(zip || "");
   const mockResources = getResourcesForZip(zip || "");
-  const isSanDiego = data.city === "San Diego";
-  const baseResources = isSanDiego ? [...mockResources, ...SD_LIBRARIES] : mockResources;
+  const cityLibraries = data.city === "San Diego" ? SD_LIBRARIES
+    : data.city === "Los Angeles" ? LA_LIBRARIES
+    : data.city === "Fresno" ? FRESNO_LIBRARIES
+    : [];
+  const baseResources = [...mockResources, ...cityLibraries];
 
   const [communityResources, setCommunityResources] = useState<Resource[]>(() => {
     try {
