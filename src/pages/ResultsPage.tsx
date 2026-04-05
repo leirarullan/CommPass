@@ -5,6 +5,7 @@ import { getZipData, getResourcesForZip, generateCommunityExplanation, lookupCit
 import { SD_LIBRARIES } from "@/data/sdLibraries";
 import { LA_LIBRARIES } from "@/data/laLibraries";
 import { FRESNO_LIBRARIES } from "@/data/fresnoLibraries";
+import { getAdditionalLibraries } from "@/data/additionalLibraries";
 import { getUCLinksProgramsForCity, getUCLinksResourcesForCity, getAllUCLinksPrograms } from "@/data/ucLinksPrograms";
 import ResourceMap from "@/components/ResourceMap";
 import ResourceList from "@/components/ResourceList";
@@ -151,12 +152,12 @@ const ResultsPage = () => {
   }
 
   const mockResources = getResourcesForZip(zip || "");
-  const sdAreaCities = ["San Diego", "National City", "Chula Vista", "San Ysidro"];
-  const laAreaCities = ["Los Angeles", "Huntington Park", "South Gate", "Compton"];
-  const cityLibraries = sdAreaCities.includes(data.city) ? SD_LIBRARIES
-    : laAreaCities.includes(data.city) ? LA_LIBRARIES
+  const sdAreaCities = ["San Diego", "National City", "Chula Vista", "San Ysidro", "La Jolla", "Del Mar"];
+  const laAreaCities = ["Los Angeles", "Huntington Park", "South Gate", "Compton", "Malibu"];
+  const cityLibraries = sdAreaCities.includes(data.city) ? [...SD_LIBRARIES, ...getAdditionalLibraries(data.city)]
+    : laAreaCities.includes(data.city) ? [...LA_LIBRARIES, ...getAdditionalLibraries(data.city)]
     : data.city === "Fresno" ? FRESNO_LIBRARIES
-    : [];
+    : getAdditionalLibraries(data.city);
   const ucLinksResources = getUCLinksResourcesForCity(data.city);
   const ucLinksPrograms = getUCLinksProgramsForCity(data.city);
   const allUCLinksPrograms = getAllUCLinksPrograms();
