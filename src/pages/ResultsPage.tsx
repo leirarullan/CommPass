@@ -39,6 +39,7 @@ const ResultsPage = () => {
 
   const [showCommunity, setShowCommunity] = useState(true);
   const [activeFilters, setActiveFilters] = useState<ResourceCategory[]>([]);
+  const [searchQuery, setSearchQuery] = useState("");
   const [showExplanation, setShowExplanation] = useState(false);
   const [showAddForm, setShowAddForm] = useState(false);
   const [selectedResource, setSelectedResource] = useState<Resource | null>(null);
