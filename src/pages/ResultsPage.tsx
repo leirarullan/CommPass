@@ -122,7 +122,7 @@ const ResultsPage = () => {
   const [showAddForm, setShowAddForm] = useState(false);
   const [selectedResource, setSelectedResource] = useState<Resource | null>(null);
   const [detailOpen, setDetailOpen] = useState(false);
-
+  const [showOverlay, setShowOverlay] = useState(true);
   // Merge reviews into resources
   const enrichResources = (resources: Resource[]) =>
     resources.map((r) => ({ ...r, reviews: reviews[r.id] || [] }));
