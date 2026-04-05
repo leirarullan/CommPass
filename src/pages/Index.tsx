@@ -39,10 +39,10 @@ const Index = () => {
 
       {/* Hero */}
       <section className="relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-light via-pink-light/40 to-yellow-light/60" />
-        <div className="absolute top-10 left-10 w-32 h-32 bg-pink-light rounded-full blur-3xl opacity-60" />
-        <div className="absolute bottom-10 right-10 w-40 h-40 bg-yellow-light rounded-full blur-3xl opacity-60" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-blue-light rounded-full blur-3xl opacity-40" />
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-light via-pink-light/40 to-yellow-light/60 animate-gradient-shift" />
+        <div className="absolute top-10 left-10 w-32 h-32 bg-pink-light rounded-full blur-3xl opacity-60 animate-blob" />
+        <div className="absolute bottom-10 right-10 w-40 h-40 bg-yellow-light rounded-full blur-3xl opacity-60 animate-blob animation-delay-2000" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-blue-light rounded-full blur-3xl opacity-40 animate-blob animation-delay-4000" />
         
         <div className="section-container relative py-20 sm:py-32">
           <div className="max-w-2xl mx-auto text-center">
