@@ -124,14 +124,12 @@ const ResultsPage = () => {
         {/* Community Insight */}
         <section className="card-soft">
           <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
-            <div>
-              <h2 className="font-display text-2xl text-foreground mb-1">
-                {data.city} — ZIP {data.zip}
-              </h2>
-              <p className="text-muted-foreground">
-                Your area is in the <strong className="text-accent">top {data.percentile}%</strong> most environmentally impacted in California.
-              </p>
-            </div>
+            <LocationSearch
+              city={data.city}
+              zip={data.zip}
+              percentile={data.percentile}
+              onNavigate={(newZip) => navigate(`/results/${newZip}`)}
+            />
             <button
               onClick={() => setShowExplanation(!showExplanation)}
               className="btn-primary flex items-center gap-2 shrink-0"
