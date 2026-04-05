@@ -166,13 +166,6 @@ const ResultsPage = () => {
     return matchesCategory && matchesSearch;
   });
 
-  useEffect(() => {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(communityResources));
-  }, [communityResources]);
-
-  useEffect(() => {
-    localStorage.setItem(REVIEWS_KEY, JSON.stringify(reviews));
-  }, [reviews]);
 
   const handleAddResource = (r: Resource) => {
     setCommunityResources((prev) => [...prev, r]);
