@@ -225,8 +225,27 @@ const CITY_TO_PROGRAMS: Record<string, string[]> = {
   "San Jose": ["ucl-18"],
 };
 
+// Map cities to nearby regions so they show relevant programs
+const CITY_REGION: Record<string, string> = {
+  "Huntington Park": "Los Angeles",
+  "South Gate": "Los Angeles",
+  "Compton": "Los Angeles",
+  "Pomona": "Los Angeles",
+  "National City": "San Diego",
+  "Chula Vista": "San Diego",
+  "San Ysidro": "San Diego",
+  "San Francisco": "Oakland",
+  "Riverside": "Los Angeles",
+  "San Bernardino": "Los Angeles",
+  "Sacramento": "Oakland",
+  "Stockton": "Oakland",
+  "Bakersfield": "Fresno",
+};
+
 export function getUCLinksProgramsForCity(city: string): UCLinksProgram[] {
-  const ids = CITY_TO_PROGRAMS[city] || [];
+  const resolvedCity = CITY_TO_PROGRAMS[city] ? city : CITY_REGION[city] || null;
+  if (!resolvedCity) return [];
+  const ids = CITY_TO_PROGRAMS[resolvedCity] || [];
   return UC_LINKS_PROGRAMS.filter(p => ids.includes(p.id));
 }
 
