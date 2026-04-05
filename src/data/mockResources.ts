@@ -6,6 +6,8 @@ export interface CommunityReview {
   text: string;
   date: string;
   approved: boolean;
+  verified?: boolean;
+  verifiedName?: string;
 }
 
 export interface Resource {
