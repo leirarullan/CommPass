@@ -83,6 +83,7 @@ const CITY_TO_ZIP: Record<string, string> = {
   "san diego": "92113", "national city": "91950", "chula vista": "91911", "san ysidro": "92173",
   "la jolla": "92113", "ocean beach": "92113", "barrio logan": "92113",
   "oakland": "94601", "east oakland": "94603",
+  "san francisco": "94124", "sf": "94124", "bayview": "94124", "hunters point": "94124", "visitacion valley": "94134",
   "san jose": "95116",
   "riverside": "92501",
   "san bernardino": "92411",
