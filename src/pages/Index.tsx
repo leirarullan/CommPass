@@ -58,9 +58,9 @@ const Index = () => {
                 <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
                 <input
                   type="text"
-                  placeholder="Enter your ZIP code"
-                  value={zip}
-                  onChange={(e) => setZip(e.target.value.replace(/\D/g, "").slice(0, 5))}
+                  placeholder="Search by city, ZIP, or neighborhood"
+                  value={query}
+                  onChange={(e) => setQuery(e.target.value)}
                   className="w-full pl-12 pr-4 py-4 rounded-full border border-border bg-card text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/40 text-lg shadow-sm"
                 />
               </div>

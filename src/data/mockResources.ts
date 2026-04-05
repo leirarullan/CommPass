@@ -96,6 +96,17 @@ export function lookupCityToZip(query: string): string | null {
   return CITY_TO_ZIP[normalized] || null;
 }
 
+const DEFAULT_ZIP: ZipData = { zip: "00000", lat: 34.0522, lng: -118.2437, city: "California Community", percentile: 75, pollutionFactors: ["air pollution", "traffic emissions", "industrial activity"], accessIssues: ["limited resources", "access gaps", "digital divide"] };
+
+// Haversine distance in km
+function haversine(lat1: number, lng1: number, lat2: number, lng2: number): number {
+  const toRad = (d: number) => (d * Math.PI) / 180;
+  const dLat = toRad(lat2 - lat1);
+  const dLng = toRad(lng2 - lng1);
+  const a = Math.sin(dLat / 2) ** 2 + Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) * Math.sin(dLng / 2) ** 2;
+  return 6371 * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+}
+
 // Approximate lat/lng from a CA ZIP code using known data points
 function estimateZipCoords(zip: string): { lat: number; lng: number } | null {
   const z = parseInt(zip, 10);
