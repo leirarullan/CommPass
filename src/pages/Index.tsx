@@ -69,7 +69,7 @@ const Index = () => {
               </button>
             </form>
             <p className="mt-4 text-sm text-muted-foreground">
-              Try: 90011 · 93706 · 92113 · 94601 · 95116
+              Try: National City · Oakland · Fresno · 90011 · 92113
             </p>
           </div>
         </div>
