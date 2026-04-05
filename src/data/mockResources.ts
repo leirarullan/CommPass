@@ -55,6 +55,9 @@ export const ZIP_DATA: Record<string, ZipData> = {
   "94601": { zip: "94601", lat: 37.7752, lng: -122.2141, city: "Oakland", percentile: 88, pollutionFactors: ["lead exposure risk", "diesel emissions", "cleanup sites"], accessIssues: ["digital divide", "limited ESL programs", "overcrowded schools"] },
   "94603": { zip: "94603", lat: 37.7380, lng: -122.1780, city: "Oakland", percentile: 90, pollutionFactors: ["diesel emissions", "PM2.5", "toxic releases"], accessIssues: ["limited tutoring", "overcrowded schools", "digital divide"] },
   "94621": { zip: "94621", lat: 37.7380, lng: -122.2100, city: "Oakland", percentile: 87, pollutionFactors: ["diesel emissions", "cleanup sites", "lead exposure"], accessIssues: ["limited ESL programs", "digital divide", "few community centers"] },
+  // San Francisco
+  "94124": { zip: "94124", lat: 37.7308, lng: -122.3886, city: "San Francisco", percentile: 86, pollutionFactors: ["diesel emissions", "PM2.5", "cleanup sites"], accessIssues: ["high housing costs", "digital divide", "limited free programs"] },
+  "94134": { zip: "94134", lat: 37.7191, lng: -122.4130, city: "San Francisco", percentile: 82, pollutionFactors: ["traffic density", "PM2.5", "air toxics"], accessIssues: ["high housing costs", "language barriers", "limited free programs"] },
   // San Jose area
   "95116": { zip: "95116", lat: 37.3496, lng: -121.8481, city: "San Jose", percentile: 82, pollutionFactors: ["groundwater contamination", "air toxics", "traffic density"], accessIssues: ["high housing costs", "limited free programs", "language access"] },
   "95112": { zip: "95112", lat: 37.3520, lng: -121.8890, city: "San Jose", percentile: 79, pollutionFactors: ["groundwater contamination", "traffic density", "air toxics"], accessIssues: ["high housing costs", "language access", "limited free programs"] },
