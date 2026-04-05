@@ -31,6 +31,14 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      {/* Header */}
+      <header className="border-b border-border bg-card/80 backdrop-blur-sm sticky top-0 z-50">
+        <div className="section-container flex items-center gap-2 py-3">
+          <img src={logo} alt="CommPass logo" className="w-8 h-8" />
+          <span className="font-display text-xl text-foreground">Comm<span className="text-primary">Pass</span></span>
+        </div>
+      </header>
+
       {/* Hero */}
       <section className="relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-blue-light via-pink-light/40 to-yellow-light/60" />
@@ -44,12 +52,9 @@ const Index = () => {
               <Compass className="w-4 h-4 text-primary" />
               <span className="text-sm font-semibold text-primary">Community · Environment · Education</span>
             </div>
-            <div className="flex items-center justify-center gap-3 mb-3">
-              <img src={logo} alt="CommPass logo" className="w-14 h-14 sm:w-20 sm:h-20" />
-              <h1 className="font-display text-5xl sm:text-7xl text-foreground leading-tight">
-                Comm<span className="text-primary">Pass</span>
-              </h1>
-            </div>
+            <h1 className="font-display text-5xl sm:text-7xl text-foreground mb-3 leading-tight">
+              Comm<span className="text-primary">Pass</span>
+            </h1>
             <p className="text-lg sm:text-xl text-muted-foreground mb-2 font-medium">
               Finding Common Ground Within Our Communities
             </p>
