@@ -12,6 +12,7 @@ import FilterBar from "@/components/FilterBar";
 import AddResourceForm from "@/components/AddResourceForm";
 import AIChatBox from "@/components/AIChatBox";
 import ResourceDetailDialog from "@/components/ResourceDetailDialog";
+import UCLinksSection from "@/components/UCLinksSection";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
 
