@@ -39,6 +39,7 @@ const maskName = (name: string) => {
 const ResourceDetailDialog = ({ resource, open, onOpenChange, onAddReview, user, profile, onRequestAuth }: Props) => {
   const [imgIdx, setImgIdx] = useState(0);
   const [reviewText, setReviewText] = useState("");
+  const [skippedAuth, setSkippedAuth] = useState(false);
   const inputRef = useRef<HTMLTextAreaElement>(null);
 
   if (!resource || !open) return null;
