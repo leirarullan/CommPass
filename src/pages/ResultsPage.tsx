@@ -53,9 +53,14 @@ const ResultsPage = () => {
     ? enrichResources([...baseResources, ...communityResources])
     : enrichResources(baseResources);
 
-  const filtered = activeFilters.length === 0
-    ? allResources
-    : allResources.filter((r) => activeFilters.includes(r.category));
+  const filtered = allResources.filter((r) => {
+    const matchesCategory = activeFilters.length === 0 || activeFilters.includes(r.category);
+    const matchesSearch = searchQuery.trim() === "" ||
+      r.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      r.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      r.address.toLowerCase().includes(searchQuery.toLowerCase());
+    return matchesCategory && matchesSearch;
+  });
 
   useEffect(() => {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(communityResources));
