@@ -56,7 +56,7 @@ const FAQ_ITEMS: FAQItem[] = [
   {
     question: 'What is the "Compare Your Community" feature?',
     answer:
-      "This feature lets you visually compare your community's environmental burden against a lower-burden reference city — like Palo Alto, Del Mar, or Saratoga.\n\nYou'll see a **side-by-side comparison** showing percentile scores, pollution factors, and access barriers. The goal isn't to make anyone feel bad about where they live — it's to **make the disparity visible** so we can advocate for change and direct resources where they're needed most.",
+      "This feature lets you visually compare your community's environmental burden against a lower-burden reference city — like Palo Alto, Del Mar, or Saratoga.\n\nYou'll see a **side-by-side comparison** showing percentile scores, pollution factors, and access barriers. Our goal is to **make the disparity visible** so we can advocate for change and direct resources where they're needed most.",
     icon: <Users className="w-5 h-5" />,
   },
   {
