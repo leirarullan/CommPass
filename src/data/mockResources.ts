@@ -78,7 +78,8 @@ const CITY_TO_ZIP: Record<string, string> = {
   "los angeles": "90011", "la": "90011",
   "fresno": "93706",
   "san diego": "92113", "national city": "91950", "chula vista": "91911", "san ysidro": "92173",
-  "oakland": "94601",
+  "la jolla": "92113", "ocean beach": "92113", "barrio logan": "92113",
+  "oakland": "94601", "east oakland": "94603",
   "san jose": "95116",
   "riverside": "92501",
   "san bernardino": "92411",
@@ -89,6 +90,12 @@ const CITY_TO_ZIP: Record<string, string> = {
   "pomona": "91766",
   "huntington park": "90255",
   "south gate": "90280",
+  "watts": "90001", "south la": "90044", "south los angeles": "90044",
+  "east la": "90255", "east los angeles": "90255",
+  "logan heights": "92113", "city heights": "92114", "encanto": "92114",
+  "west fresno": "93706", "downtown fresno": "93721",
+  "fruitvale": "94601", "deep east oakland": "94621",
+  "east san jose": "95116",
 };
 
 export function lookupCityToZip(query: string): string | null {
