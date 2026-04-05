@@ -2,17 +2,29 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Search, Compass, BookOpen, Users, Wifi, GraduationCap, ArrowRight, Heart, Sparkles, Database } from "lucide-react";
 import { getAllUCLinksPrograms } from "@/data/ucLinksPrograms";
+import { lookupCityToZip } from "@/data/mockResources";
 import UCLinksSection from "@/components/UCLinksSection";
 
 const Index = () => {
-  const [zip, setZip] = useState("");
+  const [query, setQuery] = useState("");
   const navigate = useNavigate();
   const allPrograms = getAllUCLinksPrograms();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (zip.trim().length >= 5) {
-      navigate(`/results/${zip.trim()}`);
+    const trimmed = query.trim();
+    if (!trimmed) return;
+    
+    // Check if it's a ZIP code (all digits, 5 chars)
+    if (/^\d{5}$/.test(trimmed)) {
+      navigate(`/results/${trimmed}`);
+      return;
+    }
+    
+    // Try city name lookup
+    const zip = lookupCityToZip(trimmed);
+    if (zip) {
+      navigate(`/results/${zip}`);
     }
   };
 
@@ -46,9 +58,9 @@ const Index = () => {
                 <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
                 <input
                   type="text"
-                  placeholder="Enter your ZIP code"
-                  value={zip}
-                  onChange={(e) => setZip(e.target.value.replace(/\D/g, "").slice(0, 5))}
+                  placeholder="Search by city, ZIP, or neighborhood"
+                  value={query}
+                  onChange={(e) => setQuery(e.target.value)}
                   className="w-full pl-12 pr-4 py-4 rounded-full border border-border bg-card text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/40 text-lg shadow-sm"
                 />
               </div>
@@ -57,7 +69,7 @@ const Index = () => {
               </button>
             </form>
             <p className="mt-4 text-sm text-muted-foreground">
-              Try: 90011 · 93706 · 92113 · 94601 · 95116
+              Try: National City · Oakland · Fresno · 90011 · 92113
             </p>
           </div>
         </div>

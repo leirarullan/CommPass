@@ -35,12 +35,66 @@ export interface ZipData {
 }
 
 export const ZIP_DATA: Record<string, ZipData> = {
+  // Los Angeles area
   "90011": { zip: "90011", lat: 33.9925, lng: -118.2551, city: "Los Angeles", percentile: 95, pollutionFactors: ["diesel particulate matter", "toxic releases", "traffic density"], accessIssues: ["limited park access", "few community centers", "digital divide"] },
+  "90001": { zip: "90001", lat: 33.9425, lng: -118.2551, city: "Los Angeles", percentile: 93, pollutionFactors: ["diesel particulate matter", "traffic density", "toxic releases"], accessIssues: ["limited park access", "few community centers", "digital divide"] },
+  "90044": { zip: "90044", lat: 33.9525, lng: -118.2911, city: "Los Angeles", percentile: 91, pollutionFactors: ["traffic density", "diesel emissions", "PM2.5"], accessIssues: ["limited tutoring", "few libraries", "digital divide"] },
+  "90255": { zip: "90255", lat: 33.9753, lng: -118.2120, city: "Huntington Park", percentile: 94, pollutionFactors: ["toxic releases", "traffic density", "diesel emissions"], accessIssues: ["overcrowded schools", "limited park access", "language barriers"] },
+  "90280": { zip: "90280", lat: 33.9472, lng: -118.1876, city: "South Gate", percentile: 89, pollutionFactors: ["diesel emissions", "traffic density", "lead exposure"], accessIssues: ["limited after-school programs", "few libraries", "digital divide"] },
+  // Fresno area
   "93706": { zip: "93706", lat: 36.7103, lng: -119.8093, city: "Fresno", percentile: 98, pollutionFactors: ["pesticide use", "PM2.5 concentrations", "groundwater threats"], accessIssues: ["lack of broadband", "limited tutoring", "few libraries"] },
+  "93702": { zip: "93702", lat: 36.7378, lng: -119.7714, city: "Fresno", percentile: 96, pollutionFactors: ["pesticide use", "PM2.5", "drinking water contaminants"], accessIssues: ["lack of broadband", "limited ESL programs", "few libraries"] },
+  "93721": { zip: "93721", lat: 36.7352, lng: -119.7871, city: "Fresno", percentile: 94, pollutionFactors: ["PM2.5", "pesticide use", "cleanup sites"], accessIssues: ["limited tutoring", "digital divide", "overcrowded schools"] },
+  // San Diego area
   "92113": { zip: "92113", lat: 32.6901, lng: -117.1189, city: "San Diego", percentile: 90, pollutionFactors: ["traffic pollution", "hazardous waste facilities", "ozone levels"], accessIssues: ["language barriers", "underfunded schools", "limited after-school programs"] },
+  "91950": { zip: "91950", lat: 32.6781, lng: -117.0992, city: "National City", percentile: 88, pollutionFactors: ["traffic pollution", "diesel emissions", "hazardous waste"], accessIssues: ["language barriers", "limited after-school programs", "underfunded schools"] },
+  "92114": { zip: "92114", lat: 32.7074, lng: -117.0530, city: "San Diego", percentile: 85, pollutionFactors: ["traffic pollution", "ozone levels", "toxic releases"], accessIssues: ["language barriers", "limited free programs", "digital divide"] },
+  "91911": { zip: "91911", lat: 32.6189, lng: -117.0542, city: "Chula Vista", percentile: 80, pollutionFactors: ["traffic pollution", "ozone levels", "hazardous waste"], accessIssues: ["language barriers", "limited tutoring", "few libraries"] },
+  "92173": { zip: "92173", lat: 32.5560, lng: -117.0590, city: "San Ysidro", percentile: 92, pollutionFactors: ["traffic pollution", "diesel emissions", "border pollution"], accessIssues: ["language barriers", "limited resources", "digital divide"] },
+  // Oakland area
   "94601": { zip: "94601", lat: 37.7752, lng: -122.2141, city: "Oakland", percentile: 88, pollutionFactors: ["lead exposure risk", "diesel emissions", "cleanup sites"], accessIssues: ["digital divide", "limited ESL programs", "overcrowded schools"] },
+  "94603": { zip: "94603", lat: 37.7380, lng: -122.1780, city: "Oakland", percentile: 90, pollutionFactors: ["diesel emissions", "PM2.5", "toxic releases"], accessIssues: ["limited tutoring", "overcrowded schools", "digital divide"] },
+  "94621": { zip: "94621", lat: 37.7380, lng: -122.2100, city: "Oakland", percentile: 87, pollutionFactors: ["diesel emissions", "cleanup sites", "lead exposure"], accessIssues: ["limited ESL programs", "digital divide", "few community centers"] },
+  // San Jose area
   "95116": { zip: "95116", lat: 37.3496, lng: -121.8481, city: "San Jose", percentile: 82, pollutionFactors: ["groundwater contamination", "air toxics", "traffic density"], accessIssues: ["high housing costs", "limited free programs", "language access"] },
+  "95112": { zip: "95112", lat: 37.3520, lng: -121.8890, city: "San Jose", percentile: 79, pollutionFactors: ["groundwater contamination", "traffic density", "air toxics"], accessIssues: ["high housing costs", "language access", "limited free programs"] },
+  // Riverside / Inland Empire
+  "92501": { zip: "92501", lat: 33.9533, lng: -117.3962, city: "Riverside", percentile: 86, pollutionFactors: ["PM2.5", "ozone", "traffic density"], accessIssues: ["limited public transit", "few libraries", "digital divide"] },
+  "92411": { zip: "92411", lat: 34.1083, lng: -117.3259, city: "San Bernardino", percentile: 91, pollutionFactors: ["PM2.5", "ozone", "diesel emissions"], accessIssues: ["limited tutoring", "underfunded schools", "digital divide"] },
+  // Sacramento
+  "95823": { zip: "95823", lat: 38.5138, lng: -121.4430, city: "Sacramento", percentile: 83, pollutionFactors: ["diesel emissions", "PM2.5", "cleanup sites"], accessIssues: ["limited ESL programs", "digital divide", "few community centers"] },
+  // Stockton
+  "95206": { zip: "95206", lat: 37.9243, lng: -121.2769, city: "Stockton", percentile: 89, pollutionFactors: ["pesticide use", "PM2.5", "groundwater threats"], accessIssues: ["limited tutoring", "lack of broadband", "language barriers"] },
+  // Bakersfield
+  "93307": { zip: "93307", lat: 35.3230, lng: -118.9960, city: "Bakersfield", percentile: 93, pollutionFactors: ["PM2.5", "pesticide use", "ozone"], accessIssues: ["limited public transit", "few libraries", "lack of broadband"] },
+  // Compton
+  "90220": { zip: "90220", lat: 33.8958, lng: -118.2201, city: "Compton", percentile: 92, pollutionFactors: ["diesel emissions", "traffic density", "lead exposure"], accessIssues: ["limited park access", "underfunded schools", "few community centers"] },
+  // Pomona
+  "91766": { zip: "91766", lat: 34.0585, lng: -117.7493, city: "Pomona", percentile: 84, pollutionFactors: ["traffic density", "groundwater contamination", "PM2.5"], accessIssues: ["limited tutoring", "language barriers", "digital divide"] },
 };
+
+// City name → representative ZIP lookup
+const CITY_TO_ZIP: Record<string, string> = {
+  "los angeles": "90011", "la": "90011",
+  "fresno": "93706",
+  "san diego": "92113", "national city": "91950", "chula vista": "91911", "san ysidro": "92173",
+  "oakland": "94601",
+  "san jose": "95116",
+  "riverside": "92501",
+  "san bernardino": "92411",
+  "sacramento": "95823",
+  "stockton": "95206",
+  "bakersfield": "93307",
+  "compton": "90220",
+  "pomona": "91766",
+  "huntington park": "90255",
+  "south gate": "90280",
+};
+
+export function lookupCityToZip(query: string): string | null {
+  const normalized = query.trim().toLowerCase();
+  return CITY_TO_ZIP[normalized] || null;
+}
 
 const DEFAULT_ZIP: ZipData = { zip: "00000", lat: 34.0522, lng: -118.2437, city: "California Community", percentile: 75, pollutionFactors: ["air pollution", "traffic emissions", "industrial activity"], accessIssues: ["limited resources", "access gaps", "digital divide"] };
 
@@ -53,15 +107,28 @@ function haversine(lat1: number, lng1: number, lat2: number, lng2: number): numb
   return 6371 * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 }
 
-// Approximate lat/lng from a CA ZIP code (rough linear interpolation)
+// Approximate lat/lng from a CA ZIP code using known data points
 function estimateZipCoords(zip: string): { lat: number; lng: number } | null {
   const z = parseInt(zip, 10);
-  // California ZIP range is roughly 90001–96162
   if (z < 90001 || z > 96162) return null;
-  // Simple interpolation across CA's lat/lng range
-  const t = (z - 90001) / (96162 - 90001);
-  // Southern CA (~33.9) to Northern CA (~41.7), west (~-124) to east (~-117)
-  return { lat: 33.9 + t * 7.8, lng: -118.3 + t * (-122.4 + 118.3) };
+  
+  // Use known ZIP data points for better interpolation
+  const known = Object.values(ZIP_DATA).map(d => ({ z: parseInt(d.zip, 10), lat: d.lat, lng: d.lng }));
+  known.sort((a, b) => a.z - b.z);
+  
+  // Find bracketing ZIPs
+  let lower = known[0], upper = known[known.length - 1];
+  for (let i = 0; i < known.length - 1; i++) {
+    if (z >= known[i].z && z <= known[i + 1].z) {
+      lower = known[i];
+      upper = known[i + 1];
+      break;
+    }
+  }
+  
+  if (upper.z === lower.z) return { lat: lower.lat, lng: lower.lng };
+  const t = (z - lower.z) / (upper.z - lower.z);
+  return { lat: lower.lat + t * (upper.lat - lower.lat), lng: lower.lng + t * (upper.lng - lower.lng) };
 }
 
 export function getZipData(zip: string): ZipData {
