@@ -173,9 +173,9 @@ const ResultsPage = () => {
           </div>
         </section>
 
-        {/* Resource Map + List */}
+        {/* Resource Map + Detail Panel */}
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
-          <div className="lg:col-span-3">
+          <div className={detailOpen && selectedResource ? "lg:col-span-3" : "lg:col-span-3"}>
             <ResourceMap
               center={[data.lat, data.lng]}
               resources={filtered}
@@ -183,12 +183,21 @@ const ResultsPage = () => {
               onSelect={handleSelectResource}
             />
           </div>
-          <div className="lg:col-span-2">
-            <ResourceList
-              resources={filtered}
-              selected={selectedResource}
-              onSelect={handleSelectResource}
-            />
+          <div className="lg:col-span-2 relative">
+            {detailOpen && selectedResource ? (
+              <ResourceDetailDialog
+                resource={selectedResource}
+                open={detailOpen}
+                onOpenChange={setDetailOpen}
+                onAddReview={handleAddReview}
+              />
+            ) : (
+              <ResourceList
+                resources={filtered}
+                selected={selectedResource}
+                onSelect={handleSelectResource}
+              />
+            )}
           </div>
         </div>
 
