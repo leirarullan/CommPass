@@ -1,5 +1,13 @@
 export type ResourceCategory = "Education" | "Technology" | "Community Support";
 
+export interface CommunityReview {
+  id: string;
+  author: string;
+  text: string;
+  date: string;
+  approved: boolean;
+}
+
 export interface Resource {
   id: string;
   name: string;
@@ -12,6 +20,8 @@ export interface Resource {
   isUCLinks?: boolean;
   isCommunitySubmitted?: boolean;
   communityNote?: string;
+  images?: string[];
+  reviews?: CommunityReview[];
 }
 
 export interface ZipData {
