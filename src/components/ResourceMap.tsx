@@ -108,7 +108,7 @@ const ResourceMap = ({ center, resources, selected, onSelect, percentile, showOv
         opacity: 0.4,
       }).addTo(overlaysRef.current!);
     }
-  }, [center, percentile]);
+  }, [center, percentile, showOverlay]);
 
   // Update markers
   useEffect(() => {
