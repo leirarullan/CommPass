@@ -51,12 +51,6 @@ const ResourceDetailDialog = ({ resource, open, onOpenChange, onAddReview, user,
   const nextImg = () => setImgIdx((i) => (i === images.length - 1 ? 0 : i + 1));
 
   const handleSubmitReview = () => {
-    if (!user) {
-      onRequestAuth?.();
-      toast.info("Sign in to leave a review.");
-      return;
-    }
-
     const result = moderateReview(reviewText);
 
     if (!result.approved) {
@@ -64,7 +58,8 @@ const ResourceDetailDialog = ({ resource, open, onOpenChange, onAddReview, user,
       return;
     }
 
-    const displayName = profile?.display_name || "User";
+    const isVerified = !!user;
+    const displayName = isVerified ? (profile?.display_name || "User") : "Anonymous";
 
     const review: CommunityReview = {
       id: crypto.randomUUID(),
@@ -72,8 +67,8 @@ const ResourceDetailDialog = ({ resource, open, onOpenChange, onAddReview, user,
       text: reviewText.trim(),
       date: new Date().toLocaleDateString(),
       approved: true,
-      verified: true,
-      verifiedName: displayName,
+      verified: isVerified,
+      verifiedName: isVerified ? displayName : undefined,
     };
 
     onAddReview(resource.id, review);
