@@ -5,12 +5,14 @@ import { getZipData, getResourcesForZip, generateCommunityExplanation, type Reso
 import { SD_LIBRARIES } from "@/data/sdLibraries";
 import { LA_LIBRARIES } from "@/data/laLibraries";
 import { FRESNO_LIBRARIES } from "@/data/fresnoLibraries";
+import { getUCLinksProgramsForCity, getUCLinksResourcesForCity, getAllUCLinksPrograms } from "@/data/ucLinksPrograms";
 import ResourceMap from "@/components/ResourceMap";
 import ResourceList from "@/components/ResourceList";
 import FilterBar from "@/components/FilterBar";
 import AddResourceForm from "@/components/AddResourceForm";
 import AIChatBox from "@/components/AIChatBox";
 import ResourceDetailDialog from "@/components/ResourceDetailDialog";
+import UCLinksSection from "@/components/UCLinksSection";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
 
@@ -26,7 +28,10 @@ const ResultsPage = () => {
     : data.city === "Los Angeles" ? LA_LIBRARIES
     : data.city === "Fresno" ? FRESNO_LIBRARIES
     : [];
-  const baseResources = [...mockResources, ...cityLibraries];
+  const ucLinksResources = getUCLinksResourcesForCity(data.city);
+  const ucLinksPrograms = getUCLinksProgramsForCity(data.city);
+  const allUCLinksPrograms = getAllUCLinksPrograms();
+  const baseResources = [...mockResources, ...cityLibraries, ...ucLinksResources];
 
   const [communityResources, setCommunityResources] = useState<Resource[]>(() => {
     try {
@@ -227,7 +232,9 @@ const ResultsPage = () => {
           </div>
         </div>
 
-        {/* Community Submissions */}
+        {/* UC Links Programs */}
+        <UCLinksSection programs={ucLinksPrograms} allPrograms={allUCLinksPrograms} />
+
         {communityResources.length > 0 && showCommunity && (
           <section>
             <h3 className="font-display text-xl text-foreground mb-4">🌟 From the Community</h3>
