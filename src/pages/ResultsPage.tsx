@@ -216,6 +216,25 @@ const ResultsPage = () => {
         {/* UC Links Programs */}
         <UCLinksSection programs={ucLinksPrograms} allPrograms={allUCLinksPrograms} />
 
+        {/* CalEnviroScreen Map */}
+        <section className="card-soft">
+          <h3 className="font-display text-xl text-foreground mb-3 flex items-center gap-2">
+            🗺️ CalEnviroScreen 5.0 — Environmental Burden Map
+          </h3>
+          <p className="text-sm text-muted-foreground mb-4">
+            Explore environmental health data for communities across California. This map shows pollution burden and population vulnerability by census tract.
+          </p>
+          <div className="rounded-xl overflow-hidden border border-border" style={{ height: "500px" }}>
+            <iframe
+              src="https://experience.arcgis.com/experience/8c5c5c91ebb8481a8a3d92c897faf8ed/page/Overall-Results"
+              title="CalEnviroScreen 5.0"
+              className="w-full h-full border-0"
+              allowFullScreen
+              loading="lazy"
+            />
+          </div>
+        </section>
+
         {communityResources.length > 0 && showCommunity && (
           <section>
             <h3 className="font-display text-xl text-foreground mb-4">🌟 From the Community</h3>
