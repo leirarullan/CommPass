@@ -39,9 +39,10 @@ interface Props {
   selected: Resource | null;
   onSelect: (r: Resource) => void;
   percentile?: number;
+  showOverlay?: boolean;
 }
 
-const ResourceMap = ({ center, resources, selected, onSelect, percentile }: Props) => {
+const ResourceMap = ({ center, resources, selected, onSelect, percentile, showOverlay = true }: Props) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<L.Map | null>(null);
   const markersRef = useRef<L.LayerGroup | null>(null);
