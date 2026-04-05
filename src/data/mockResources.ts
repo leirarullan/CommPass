@@ -44,8 +44,47 @@ export const ZIP_DATA: Record<string, ZipData> = {
 
 const DEFAULT_ZIP: ZipData = { zip: "00000", lat: 34.0522, lng: -118.2437, city: "California Community", percentile: 75, pollutionFactors: ["air pollution", "traffic emissions", "industrial activity"], accessIssues: ["limited resources", "access gaps", "digital divide"] };
 
+// Haversine distance in km
+function haversine(lat1: number, lng1: number, lat2: number, lng2: number): number {
+  const toRad = (d: number) => (d * Math.PI) / 180;
+  const dLat = toRad(lat2 - lat1);
+  const dLng = toRad(lng2 - lng1);
+  const a = Math.sin(dLat / 2) ** 2 + Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) * Math.sin(dLng / 2) ** 2;
+  return 6371 * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+}
+
+// Approximate lat/lng from a CA ZIP code (rough linear interpolation)
+function estimateZipCoords(zip: string): { lat: number; lng: number } | null {
+  const z = parseInt(zip, 10);
+  // California ZIP range is roughly 90001–96162
+  if (z < 90001 || z > 96162) return null;
+  // Simple interpolation across CA's lat/lng range
+  const t = (z - 90001) / (96162 - 90001);
+  // Southern CA (~33.9) to Northern CA (~41.7), west (~-124) to east (~-117)
+  return { lat: 33.9 + t * 7.8, lng: -118.3 + t * (-122.4 + 118.3) };
+}
+
 export function getZipData(zip: string): ZipData {
-  return ZIP_DATA[zip] || { ...DEFAULT_ZIP, zip, city: `ZIP ${zip} Area` };
+  if (ZIP_DATA[zip]) return ZIP_DATA[zip];
+
+  // Find closest known ZIP by geographic proximity
+  const estimated = estimateZipCoords(zip);
+  if (estimated) {
+    let closest: ZipData | null = null;
+    let minDist = Infinity;
+    for (const entry of Object.values(ZIP_DATA)) {
+      const d = haversine(estimated.lat, estimated.lng, entry.lat, entry.lng);
+      if (d < minDist) {
+        minDist = d;
+        closest = entry;
+      }
+    }
+    if (closest) {
+      return { ...closest, zip, city: closest.city };
+    }
+  }
+
+  return { ...DEFAULT_ZIP, zip, city: `ZIP ${zip} Area` };
 }
 
 export function getResourcesForZip(zip: string): Resource[] {
