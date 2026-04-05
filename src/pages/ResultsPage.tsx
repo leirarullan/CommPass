@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { ArrowLeft, Sparkles } from "lucide-react";
+import { ArrowLeft, Sparkles, Search } from "lucide-react";
 import { getZipData, getResourcesForZip, generateCommunityExplanation, type Resource, type ResourceCategory, type CommunityReview } from "@/data/mockResources";
 import { SD_LIBRARIES } from "@/data/sdLibraries";
 import ResourceMap from "@/components/ResourceMap";
@@ -39,6 +39,7 @@ const ResultsPage = () => {
 
   const [showCommunity, setShowCommunity] = useState(true);
   const [activeFilters, setActiveFilters] = useState<ResourceCategory[]>([]);
+  const [searchQuery, setSearchQuery] = useState("");
   const [showExplanation, setShowExplanation] = useState(false);
   const [showAddForm, setShowAddForm] = useState(false);
   const [selectedResource, setSelectedResource] = useState<Resource | null>(null);
@@ -52,9 +53,14 @@ const ResultsPage = () => {
     ? enrichResources([...baseResources, ...communityResources])
     : enrichResources(baseResources);
 
-  const filtered = activeFilters.length === 0
-    ? allResources
-    : allResources.filter((r) => activeFilters.includes(r.category));
+  const filtered = allResources.filter((r) => {
+    const matchesCategory = activeFilters.length === 0 || activeFilters.includes(r.category);
+    const matchesSearch = searchQuery.trim() === "" ||
+      r.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      r.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      r.address.toLowerCase().includes(searchQuery.toLowerCase());
+    return matchesCategory && matchesSearch;
+  });
 
   useEffect(() => {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(communityResources));
@@ -129,24 +135,36 @@ const ResultsPage = () => {
           )}
         </section>
 
-        {/* Filters + Toggle + Add */}
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-          <div className="flex items-center gap-4 flex-wrap">
-            <FilterBar activeFilters={activeFilters} onChange={setActiveFilters} />
-            <div className="flex items-center gap-2">
-              <Switch
-                id="community-toggle"
-                checked={showCommunity}
-                onCheckedChange={setShowCommunity}
-              />
-              <Label htmlFor="community-toggle" className="text-sm text-muted-foreground cursor-pointer">
-                Community places
-              </Label>
-            </div>
+        {/* Search + Filters */}
+        <div className="space-y-4">
+          <div className="relative">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder="Search resources by name, description, or address..."
+              className="w-full pl-10 pr-4 py-3 rounded-xl border border-border bg-card text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/40 text-sm"
+            />
           </div>
-          <button onClick={() => setShowAddForm(!showAddForm)} className="btn-accent text-sm py-2 px-4">
-            + Add a Resource
-          </button>
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+            <div className="flex items-center gap-4 flex-wrap">
+              <FilterBar activeFilters={activeFilters} onChange={setActiveFilters} />
+              <div className="flex items-center gap-2">
+                <Switch
+                  id="community-toggle"
+                  checked={showCommunity}
+                  onCheckedChange={setShowCommunity}
+                />
+                <Label htmlFor="community-toggle" className="text-sm text-muted-foreground cursor-pointer">
+                  Community places
+                </Label>
+              </div>
+            </div>
+            <button onClick={() => setShowAddForm(!showAddForm)} className="btn-accent text-sm py-2 px-4">
+              + Add a Resource
+            </button>
+          </div>
         </div>
 
         {showAddForm && (

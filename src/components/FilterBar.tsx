@@ -1,4 +1,5 @@
-import { type ResourceCategory } from "@/data/mockResources";
+import { type ResourceCategory, CATEGORY_ICONS } from "@/data/mockResources";
+import { Checkbox } from "@/components/ui/checkbox";
 
 const CATEGORIES: ResourceCategory[] = ["Education", "Technology", "Community Support"];
 
@@ -17,29 +18,30 @@ const FilterBar = ({ activeFilters, onChange }: Props) => {
   };
 
   return (
-    <div className="flex flex-wrap gap-2">
+    <div className="flex flex-wrap items-center gap-4">
       {CATEGORIES.map((cat) => {
         const active = activeFilters.includes(cat);
         return (
-          <button
+          <label
             key={cat}
-            onClick={() => toggle(cat)}
-            className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-150 border ${
-              active
-                ? "bg-primary text-primary-foreground border-primary"
-                : "bg-card text-muted-foreground border-border hover:border-primary/40"
-            }`}
+            className="flex items-center gap-2 cursor-pointer select-none text-sm"
           >
-            {cat}
-          </button>
+            <Checkbox
+              checked={active}
+              onCheckedChange={() => toggle(cat)}
+            />
+            <span className={active ? "text-foreground font-medium" : "text-muted-foreground"}>
+              {CATEGORY_ICONS[cat]} {cat}
+            </span>
+          </label>
         );
       })}
       {activeFilters.length > 0 && (
         <button
           onClick={() => onChange([])}
-          className="px-3 py-2 rounded-full text-sm text-muted-foreground hover:text-foreground transition-colors"
+          className="text-xs text-muted-foreground hover:text-foreground transition-colors underline"
         >
-          Clear
+          Clear all
         </button>
       )}
     </div>
