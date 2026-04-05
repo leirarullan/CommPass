@@ -1,13 +1,17 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Search, Compass, BookOpen, Users, Wifi, GraduationCap, ArrowRight, Heart, Sparkles, Database } from "lucide-react";
+import { Search, Compass, BookOpen, Users, Wifi, GraduationCap, ArrowRight, Heart, Sparkles, Database, LogIn, LogOut, CheckCircle2 } from "lucide-react";
 import { getAllUCLinksPrograms } from "@/data/ucLinksPrograms";
 import { lookupCityToZip } from "@/data/mockResources";
 import UCLinksSection from "@/components/UCLinksSection";
+import { useAuth } from "@/contexts/AuthContext";
+import AuthModal from "@/components/AuthModal";
 
 const Index = () => {
   const [query, setQuery] = useState("");
+  const [showAuth, setShowAuth] = useState(false);
   const navigate = useNavigate();
+  const { user, profile, signOut } = useAuth();
   const allPrograms = getAllUCLinksPrograms();
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -32,10 +36,26 @@ const Index = () => {
     <div className="min-h-screen bg-background">
       {/* Header */}
       <header className="border-b border-border bg-card/80 backdrop-blur-sm sticky top-0 z-50">
-        <div className="section-container flex items-center gap-2 py-3">
+        <div className="section-container flex items-center justify-between gap-2 py-3">
           <span className="font-display text-xl text-foreground">Comm<span className="text-primary">Pass</span></span>
+          {user ? (
+            <div className="flex items-center gap-3">
+              <span className="text-sm text-foreground flex items-center gap-1">
+                <CheckCircle2 className="w-3.5 h-3.5 text-primary" />
+                {profile?.display_name || "User"}
+              </span>
+              <button onClick={signOut} className="text-sm text-muted-foreground hover:text-foreground flex items-center gap-1">
+                <LogOut className="w-3.5 h-3.5" /> Sign Out
+              </button>
+            </div>
+          ) : (
+            <button onClick={() => setShowAuth(true)} className="btn-primary text-sm py-1.5 px-4 flex items-center gap-1.5">
+              <LogIn className="w-3.5 h-3.5" /> Sign In
+            </button>
+          )}
         </div>
       </header>
+      <AuthModal open={showAuth} onClose={() => setShowAuth(false)} />
 
       {/* Hero */}
       <section className="relative overflow-hidden">

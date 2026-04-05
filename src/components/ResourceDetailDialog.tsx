@@ -1,14 +1,22 @@
 import { useState, useRef } from "react";
 import { type Resource, type CommunityReview, CATEGORY_ICONS } from "@/data/mockResources";
-import { MapPin, ChevronLeft, ChevronRight, ShieldCheck, Send, X } from "lucide-react";
+import { MapPin, ChevronLeft, ChevronRight, ShieldCheck, Send, X, CheckCircle2 } from "lucide-react";
 import { moderateReview } from "@/lib/moderateReview";
 import { toast } from "sonner";
+import type { User } from "@supabase/supabase-js";
+
+interface Profile {
+  display_name: string;
+}
 
 interface Props {
   resource: Resource | null;
   open: boolean;
   onOpenChange: (open: boolean) => void;
   onAddReview: (resourceId: string, review: CommunityReview) => void;
+  user?: User | null;
+  profile?: Profile | null;
+  onRequestAuth?: () => void;
 }
 
 const PLACEHOLDER_IMAGES = [
@@ -23,10 +31,14 @@ const CATEGORY_COLORS: Record<string, string> = {
   "Community Support": "bg-pink-light text-secondary",
 };
 
-const ResourceDetailDialog = ({ resource, open, onOpenChange, onAddReview }: Props) => {
+const maskName = (name: string) => {
+  if (name.length <= 2) return name[0] + "*";
+  return name[0] + "*".repeat(name.length - 2) + name[name.length - 1];
+};
+
+const ResourceDetailDialog = ({ resource, open, onOpenChange, onAddReview, user, profile, onRequestAuth }: Props) => {
   const [imgIdx, setImgIdx] = useState(0);
   const [reviewText, setReviewText] = useState("");
-  const [authorName, setAuthorName] = useState("");
   const inputRef = useRef<HTMLTextAreaElement>(null);
 
   if (!resource || !open) return null;
@@ -38,7 +50,12 @@ const ResourceDetailDialog = ({ resource, open, onOpenChange, onAddReview }: Pro
   const nextImg = () => setImgIdx((i) => (i === images.length - 1 ? 0 : i + 1));
 
   const handleSubmitReview = () => {
-    const author = authorName.trim() || "Anonymous";
+    if (!user) {
+      onRequestAuth?.();
+      toast.info("Sign in to leave a review.");
+      return;
+    }
+
     const result = moderateReview(reviewText);
 
     if (!result.approved) {
@@ -46,17 +63,20 @@ const ResourceDetailDialog = ({ resource, open, onOpenChange, onAddReview }: Pro
       return;
     }
 
+    const displayName = profile?.display_name || "User";
+
     const review: CommunityReview = {
       id: crypto.randomUUID(),
-      author,
+      author: displayName,
       text: reviewText.trim(),
       date: new Date().toLocaleDateString(),
       approved: true,
+      verified: true,
+      verifiedName: displayName,
     };
 
     onAddReview(resource.id, review);
     setReviewText("");
-    setAuthorName("");
     toast.success("Review added! Thanks for contributing.");
   };
 
@@ -160,7 +180,16 @@ const ResourceDetailDialog = ({ resource, open, onOpenChange, onAddReview }: Pro
             {approvedReviews.map((rev) => (
               <div key={rev.id} className="bg-muted/50 rounded-xl p-2.5">
                 <div className="flex items-center justify-between mb-1">
-                  <span className="text-xs font-bold text-foreground">{rev.author}</span>
+                  <span className="text-xs font-bold text-foreground flex items-center gap-1">
+                    {rev.verified ? (
+                      <>
+                        {rev.verifiedName || rev.author}
+                        <CheckCircle2 className="w-3 h-3 text-primary" />
+                      </>
+                    ) : (
+                      maskName(rev.author)
+                    )}
+                  </span>
                   <span className="text-[10px] text-muted-foreground">{rev.date}</span>
                 </div>
                 <p className="text-sm text-foreground">{rev.text}</p>
@@ -168,35 +197,42 @@ const ResourceDetailDialog = ({ resource, open, onOpenChange, onAddReview }: Pro
             ))}
           </div>
 
-          <div className="space-y-2">
-            <input
-              type="text"
-              placeholder="Your name (optional)"
-              value={authorName}
-              onChange={(e) => setAuthorName(e.target.value)}
-              className="w-full text-sm rounded-xl border border-border bg-background px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary"
-            />
-            <div className="flex gap-2">
-              <textarea
-                ref={inputRef}
-                placeholder="Write a review…"
-                value={reviewText}
-                onChange={(e) => setReviewText(e.target.value)}
-                rows={2}
-                className="flex-1 text-sm rounded-xl border border-border bg-background px-3 py-2 resize-none focus:outline-none focus:ring-2 focus:ring-primary"
-              />
-              <button
-                onClick={handleSubmitReview}
-                disabled={!reviewText.trim()}
-                className="btn-primary self-end px-3 py-2 disabled:opacity-40"
-              >
-                <Send className="w-4 h-4" />
-              </button>
+          {/* Review input */}
+          {user ? (
+            <div className="space-y-2">
+              <p className="text-xs text-muted-foreground">
+                Posting as <strong className="text-foreground">{profile?.display_name || "User"}</strong>
+                <CheckCircle2 className="w-3 h-3 text-primary inline ml-1" />
+              </p>
+              <div className="flex gap-2">
+                <textarea
+                  ref={inputRef}
+                  placeholder="Write a review…"
+                  value={reviewText}
+                  onChange={(e) => setReviewText(e.target.value)}
+                  rows={2}
+                  className="flex-1 text-sm rounded-xl border border-border bg-background px-3 py-2 resize-none focus:outline-none focus:ring-2 focus:ring-primary"
+                />
+                <button
+                  onClick={handleSubmitReview}
+                  disabled={!reviewText.trim()}
+                  className="btn-primary self-end px-3 py-2 disabled:opacity-40"
+                >
+                  <Send className="w-4 h-4" />
+                </button>
+              </div>
+              <p className="text-[10px] text-muted-foreground flex items-center gap-1">
+                <ShieldCheck className="w-3 h-3" /> Reviews are filtered by AI moderation before publishing.
+              </p>
             </div>
-            <p className="text-[10px] text-muted-foreground flex items-center gap-1">
-              <ShieldCheck className="w-3 h-3" /> Reviews are filtered by AI moderation before publishing.
-            </p>
-          </div>
+          ) : (
+            <button
+              onClick={() => onRequestAuth?.()}
+              className="btn-primary text-sm py-2 w-full"
+            >
+              Sign in to leave a review
+            </button>
+          )}
         </div>
       </div>
     </div>

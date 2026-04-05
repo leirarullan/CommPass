@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { ArrowLeft, Sparkles, Search, Edit2 } from "lucide-react";
+import { ArrowLeft, Sparkles, Search, Edit2, LogIn, LogOut, CheckCircle2 } from "lucide-react";
 import { getZipData, getResourcesForZip, generateCommunityExplanation, lookupCityToZip, type Resource, type ResourceCategory, type CommunityReview } from "@/data/mockResources";
 import { SD_LIBRARIES } from "@/data/sdLibraries";
 import { LA_LIBRARIES } from "@/data/laLibraries";
@@ -15,6 +15,9 @@ import ResourceDetailDialog from "@/components/ResourceDetailDialog";
 import UCLinksSection from "@/components/UCLinksSection";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
+import { useAuth } from "@/contexts/AuthContext";
+import AuthModal from "@/components/AuthModal";
+import { toast } from "sonner";
 
 const STORAGE_KEY = "cg_community_resources";
 const REVIEWS_KEY = "cg_resource_reviews";
@@ -88,6 +91,8 @@ const LocationSearch = ({ city, zip, percentile, onNavigate }: { city: string; z
 const ResultsPage = () => {
   const { zip } = useParams<{ zip: string }>();
   const navigate = useNavigate();
+  const { user, profile, signOut } = useAuth();
+  const [showAuth, setShowAuth] = useState(false);
   const data = getZipData(zip || "");
   const mockResources = getResourcesForZip(zip || "");
   const sdAreaCities = ["San Diego", "National City", "Chula Vista", "San Ysidro"];
@@ -184,9 +189,24 @@ const ResultsPage = () => {
           <button onClick={() => navigate("/")} className="flex items-center gap-2 hover:opacity-80 transition-opacity">
             <span className="font-display text-xl text-foreground">Comm<span className="text-primary">Pass</span></span>
           </button>
-          <div className="w-16" />
+          {user ? (
+            <div className="flex items-center gap-3">
+              <span className="text-sm text-foreground flex items-center gap-1">
+                <CheckCircle2 className="w-3.5 h-3.5 text-primary" />
+                {profile?.display_name || "User"}
+              </span>
+              <button onClick={signOut} className="text-sm text-muted-foreground hover:text-foreground flex items-center gap-1">
+                <LogOut className="w-3.5 h-3.5" />
+              </button>
+            </div>
+          ) : (
+            <button onClick={() => setShowAuth(true)} className="btn-primary text-sm py-1.5 px-4 flex items-center gap-1.5">
+              <LogIn className="w-3.5 h-3.5" /> Sign In
+            </button>
+          )}
         </div>
       </header>
+      <AuthModal open={showAuth} onClose={() => setShowAuth(false)} />
 
       <div className="section-container py-8 space-y-8">
         {/* Community Insight */}
@@ -249,7 +269,10 @@ const ResultsPage = () => {
                 </Label>
               </div>
             </div>
-            <button onClick={() => setShowAddForm(!showAddForm)} className="btn-accent text-sm py-2 px-4">
+            <button onClick={() => {
+              if (!user) { setShowAuth(true); toast.info("Sign in to add a resource."); return; }
+              setShowAddForm(!showAddForm);
+            }} className="btn-accent text-sm py-2 px-4">
               + Add a Resource
             </button>
           </div>
@@ -282,6 +305,9 @@ const ResultsPage = () => {
                 open={detailOpen}
                 onOpenChange={setDetailOpen}
                 onAddReview={handleAddReview}
+                user={user}
+                profile={profile}
+                onRequestAuth={() => setShowAuth(true)}
               />
             ) : (
               <ResourceList
