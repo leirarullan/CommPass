@@ -7,7 +7,9 @@ import UCLinksSection from "@/components/UCLinksSection";
 
 const Index = () => {
   const [query, setQuery] = useState("");
+  const [showAuth, setShowAuth] = useState(false);
   const navigate = useNavigate();
+  const { user, profile, signOut } = useAuth();
   const allPrograms = getAllUCLinksPrograms();
 
   const handleSubmit = (e: React.FormEvent) => {
