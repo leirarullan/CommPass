@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { ArrowLeft, Sparkles, Search, Edit2 } from "lucide-react";
+import logo from "@/assets/logo.png";
 import { getZipData, getResourcesForZip, generateCommunityExplanation, lookupCityToZip, type Resource, type ResourceCategory, type CommunityReview } from "@/data/mockResources";
 import { SD_LIBRARIES } from "@/data/sdLibraries";
 import { LA_LIBRARIES } from "@/data/laLibraries";
