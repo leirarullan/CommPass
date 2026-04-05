@@ -125,6 +125,17 @@ const CITY_TO_ZIP: Record<string, string> = {
   "west fresno": "93706", "downtown fresno": "93721",
   "fruitvale": "94601", "deep east oakland": "94621",
   "east san jose": "95116",
+  "del mar": "92014",
+  "carmel-by-the-sea": "93921", "carmel": "93921",
+  "santa barbara": "93101",
+  "malibu": "90265",
+  "palo alto": "94301",
+  "cupertino": "95014",
+  "los altos": "94022",
+  "irvine": "92618",
+  "folsom": "95630",
+  "rocklin": "95765",
+  "saratoga": "95070",
 };
 
 export function lookupCityToZip(query: string): string | null {
