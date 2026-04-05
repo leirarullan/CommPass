@@ -19,7 +19,9 @@ const ResultsPage = () => {
   const { zip } = useParams<{ zip: string }>();
   const navigate = useNavigate();
   const data = getZipData(zip || "");
-  const baseResources = getResourcesForZip(zip || "");
+  const mockResources = getResourcesForZip(zip || "");
+  const isSanDiego = data.city === "San Diego";
+  const baseResources = isSanDiego ? [...mockResources, ...SD_LIBRARIES] : mockResources;
 
   const [communityResources, setCommunityResources] = useState<Resource[]>(() => {
     try {
