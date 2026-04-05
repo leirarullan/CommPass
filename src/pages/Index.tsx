@@ -90,7 +90,7 @@ const Index = () => {
             { icon: Wifi, title: "Resource Map", desc: "Find libraries, Wi-Fi spots, tutoring, and tech access near you.", color: "bg-pink-light text-secondary" },
             { icon: Users, title: "Community Voice", desc: "Share and discover resources from your neighbors.", color: "bg-yellow-light text-accent-foreground" },
           ].map((f) => (
-            <div key={f.title} className="card-soft flex flex-col items-center text-center gap-3 hover:shadow-md transition-shadow">
+            <div key={f.title} className="card-soft flex flex-col items-center text-center gap-3 hover:shadow-lg hover:-translate-y-1 hover:scale-[1.02] transition-all duration-300 cursor-default">
               <div className={`w-12 h-12 rounded-2xl ${f.color} flex items-center justify-center`}>
                 <f.icon className="w-6 h-6" />
               </div>
