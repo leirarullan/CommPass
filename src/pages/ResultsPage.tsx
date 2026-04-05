@@ -275,7 +275,6 @@ const ResultsPage = () => {
             }} className="btn-accent text-sm py-2 px-4">
               + Add a Resource
             </button>
-            </button>
           </div>
         </div>
 
