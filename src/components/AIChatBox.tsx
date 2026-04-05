@@ -51,7 +51,7 @@ const AIChatBox = () => {
       {/* Toggle */}
       <button
         onClick={() => setOpen(!open)}
-        className="fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full bg-primary text-primary-foreground shadow-lg flex items-center justify-center hover:scale-105 transition-all group"
+        className="fixed bottom-6 right-6 z-[9999] w-14 h-14 rounded-full bg-primary text-primary-foreground shadow-lg flex items-center justify-center hover:scale-105 transition-all group"
         aria-label="Toggle Pascom chat"
       >
         {open ? <X className="w-6 h-6" /> : (
@@ -64,7 +64,7 @@ const AIChatBox = () => {
 
       {/* Panel */}
       {open && (
-        <div className="fixed bottom-24 right-6 z-50 w-[380px] max-w-[calc(100vw-2rem)] bg-card border border-border rounded-2xl shadow-xl flex flex-col overflow-hidden animate-fade-in"
+        <div className="fixed bottom-24 right-6 z-[9999] w-[380px] max-w-[calc(100vw-2rem)] bg-card border border-border rounded-2xl shadow-xl flex flex-col overflow-hidden animate-fade-in"
           style={{ height: "520px" }}
         >
           {/* Header */}
