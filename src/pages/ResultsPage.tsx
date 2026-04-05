@@ -93,33 +93,6 @@ const ResultsPage = () => {
   const navigate = useNavigate();
   const { user, profile, signOut } = useAuth();
   const [showAuth, setShowAuth] = useState(false);
-  const data = getZipData(zip || "");
-
-  // If ZIP is not in our database, show a friendly message
-  if (!data) {
-    return (
-      <div className="min-h-screen bg-background flex flex-col items-center justify-center p-8 text-center">
-        <h1 className="font-display text-3xl text-foreground mb-3">Location Not Found</h1>
-        <p className="text-muted-foreground mb-6 max-w-md">
-          We don't have data for ZIP code <strong>{zip}</strong> yet. CommPass currently covers select California communities with high environmental burden.
-        </p>
-        <button onClick={() => navigate("/")} className="btn-primary flex items-center gap-2">
-          <ArrowLeft className="w-4 h-4" /> Back to Search
-        </button>
-      </div>
-    );
-  }
-
-  const mockResources = getResourcesForZip(zip || "");
-  const sdAreaCities = ["San Diego", "National City", "Chula Vista", "San Ysidro"];
-  const laAreaCities = ["Los Angeles", "Huntington Park", "South Gate", "Compton"];
-  const cityLibraries = sdAreaCities.includes(data.city) ? SD_LIBRARIES
-    : laAreaCities.includes(data.city) ? LA_LIBRARIES
-    : data.city === "Fresno" ? FRESNO_LIBRARIES
-    : [];
-  const ucLinksResources = getUCLinksResourcesForCity(data.city);
-  const ucLinksPrograms = getUCLinksProgramsForCity(data.city);
-  const allUCLinksPrograms = getAllUCLinksPrograms();
 
   const [communityResources, setCommunityResources] = useState<Resource[]>(() => {
     try {
@@ -143,6 +116,39 @@ const ResultsPage = () => {
   const [selectedResource, setSelectedResource] = useState<Resource | null>(null);
   const [detailOpen, setDetailOpen] = useState(false);
   const [showOverlay, setShowOverlay] = useState(true);
+
+  const data = getZipData(zip || "");
+
+  // If ZIP is not in our database, show a friendly message
+  if (!data) {
+    return (
+      <div className="min-h-screen bg-background flex flex-col items-center justify-center p-8 text-center">
+        <h1 className="font-display text-3xl text-foreground mb-3">Location Not Found</h1>
+        <p className="text-muted-foreground mb-6 max-w-md">
+          We don't have data for ZIP code <strong>{zip}</strong> yet. CommPass currently covers select California communities with high environmental burden.
+        </p>
+        <p className="text-sm text-muted-foreground mb-6">
+          Try: National City · Oakland · Fresno · 90011 · 92113
+        </p>
+        <button onClick={() => navigate("/")} className="btn-primary flex items-center gap-2">
+          <ArrowLeft className="w-4 h-4" /> Back to Search
+        </button>
+      </div>
+    );
+  }
+
+  const mockResources = getResourcesForZip(zip || "");
+  const sdAreaCities = ["San Diego", "National City", "Chula Vista", "San Ysidro"];
+  const laAreaCities = ["Los Angeles", "Huntington Park", "South Gate", "Compton"];
+  const cityLibraries = sdAreaCities.includes(data.city) ? SD_LIBRARIES
+    : laAreaCities.includes(data.city) ? LA_LIBRARIES
+    : data.city === "Fresno" ? FRESNO_LIBRARIES
+    : [];
+  const ucLinksResources = getUCLinksResourcesForCity(data.city);
+  const ucLinksPrograms = getUCLinksProgramsForCity(data.city);
+  const allUCLinksPrograms = getAllUCLinksPrograms();
+  const baseResources = [...mockResources, ...cityLibraries, ...ucLinksResources];
+
   // Merge reviews into resources
   const enrichResources = (resources: Resource[]) =>
     resources.map((r) => ({ ...r, reviews: reviews[r.id] || [] }));
