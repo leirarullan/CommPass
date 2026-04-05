@@ -35,6 +35,10 @@ const LocationSearch = ({ city, zip, percentile, onNavigate }: { city: string; z
     e.preventDefault();
     const trimmed = query.trim();
     if (!trimmed) { setEditing(false); return; }
+    if (!isValidLocation(trimmed)) {
+      toast.error("We don't have data for that location yet. Try a supported California city or ZIP code.", { duration: 5000 });
+      return;
+    }
     if (/^\d{5}$/.test(trimmed)) {
       onNavigate(trimmed);
       setEditing(false);
