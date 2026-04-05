@@ -1,6 +1,21 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Search, Compass, BookOpen, Users, Wifi, GraduationCap, ArrowRight, Heart, Sparkles, Database, LogIn, LogOut, CheckCircle2, HelpCircle } from "lucide-react";
+import {
+  Search,
+  Compass,
+  BookOpen,
+  Users,
+  Wifi,
+  GraduationCap,
+  ArrowRight,
+  Heart,
+  Sparkles,
+  Database,
+  LogIn,
+  LogOut,
+  CheckCircle2,
+  HelpCircle,
+} from "lucide-react";
 import { getAllUCLinksPrograms } from "@/data/ucLinksPrograms";
 import { lookupCityToZip, isValidLocation } from "@/data/mockResources";
 import UCLinksSection from "@/components/UCLinksSection";
@@ -21,16 +36,18 @@ const Index = () => {
     if (!trimmed) return;
 
     if (!isValidLocation(trimmed)) {
-      toast.error("We don't have data for that location yet. Try a supported California city or ZIP code.", { duration: 5000 });
+      toast.error("We don't have data for that location yet. Try a supported California city or ZIP code.", {
+        duration: 5000,
+      });
       return;
     }
-    
+
     // Check if it's a ZIP code (all digits, 5 chars)
     if (/^\d{5}$/.test(trimmed)) {
       navigate(`/results/${trimmed}`);
       return;
     }
-    
+
     // Try city name lookup
     const zip = lookupCityToZip(trimmed);
     if (zip) {
@@ -43,19 +60,27 @@ const Index = () => {
       {/* Header */}
       <header className="border-b border-border bg-card/80 backdrop-blur-sm sticky top-0 z-50">
         <div className="section-container flex items-center justify-between gap-2 py-3">
-          <span className="font-display text-xl text-foreground">Comm<span className="text-primary">Pass</span></span>
+          <span className="font-display text-xl text-foreground">
+            Comm<span className="text-primary">Pass</span>
+          </span>
           {user ? (
             <div className="flex items-center gap-3">
               <span className="text-sm text-foreground flex items-center gap-1">
                 <CheckCircle2 className="w-3.5 h-3.5 text-primary" />
                 {profile?.display_name || "User"}
               </span>
-              <button onClick={signOut} className="text-sm text-muted-foreground hover:text-foreground flex items-center gap-1">
+              <button
+                onClick={signOut}
+                className="text-sm text-muted-foreground hover:text-foreground flex items-center gap-1"
+              >
                 <LogOut className="w-3.5 h-3.5" /> Sign Out
               </button>
             </div>
           ) : (
-            <button onClick={() => setShowAuth(true)} className="btn-primary text-sm py-1.5 px-4 flex items-center gap-1.5">
+            <button
+              onClick={() => setShowAuth(true)}
+              className="btn-primary text-sm py-1.5 px-4 flex items-center gap-1.5"
+            >
               <LogIn className="w-3.5 h-3.5" /> Sign In
             </button>
           )}
@@ -69,7 +94,7 @@ const Index = () => {
         <div className="absolute top-10 left-10 w-32 h-32 bg-pink-light rounded-full blur-3xl opacity-60 animate-blob" />
         <div className="absolute bottom-10 right-10 w-40 h-40 bg-yellow-light rounded-full blur-3xl opacity-60 animate-blob animation-delay-2000" />
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-blue-light rounded-full blur-3xl opacity-40 animate-blob animation-delay-4000" />
-        
+
         <div className="section-container relative py-20 sm:py-32">
           <div className="max-w-2xl mx-auto text-center">
             <div className="inline-flex items-center gap-2 bg-primary/10 rounded-full px-4 py-1.5 mb-6">
@@ -83,7 +108,8 @@ const Index = () => {
               Finding Common Ground Within Our Communities
             </p>
             <p className="text-base text-muted-foreground mb-10 max-w-lg mx-auto">
-              Discover environmental data and nearby educational resources for your California community — all in one place.
+              Discover environmental data and nearby educational resources for your California community — all in one
+              place.
             </p>
 
             <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
@@ -101,9 +127,7 @@ const Index = () => {
                 Explore <ArrowRight className="w-5 h-5" />
               </button>
             </form>
-            <p className="mt-4 text-sm text-muted-foreground">
-              Try: National City · Oakland · Fresno · 90011 · 92113
-            </p>
+            <p className="mt-4 text-sm text-muted-foreground">Try: National City · Oakland · Fresno · 90011 · 92113</p>
           </div>
         </div>
       </section>
@@ -112,11 +136,29 @@ const Index = () => {
       <section className="section-container py-16">
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
           {[
-            { icon: BookOpen, title: "Community Insights", desc: "Understand environmental burdens in your neighborhood with clear, accessible data.", color: "bg-blue-light text-primary" },
-            { icon: Wifi, title: "Resource Map", desc: "Find libraries, Wi-Fi spots, tutoring, and tech access near you.", color: "bg-pink-light text-secondary" },
-            { icon: Users, title: "Community Voice", desc: "Share and discover resources from your neighbors.", color: "bg-yellow-light text-accent-foreground" },
+            {
+              icon: BookOpen,
+              title: "Community Insights",
+              desc: "Understand environmental burdens in your neighborhood with clear, accessible data.",
+              color: "bg-blue-light text-primary",
+            },
+            {
+              icon: Wifi,
+              title: "Resource Map",
+              desc: "Find libraries, Wi-Fi spots, tutoring, and tech access near you.",
+              color: "bg-pink-light text-secondary",
+            },
+            {
+              icon: Users,
+              title: "Community Voice",
+              desc: "Share and discover resources from your neighbors.",
+              color: "bg-yellow-light text-accent-foreground",
+            },
           ].map((f) => (
-            <div key={f.title} className="card-soft flex flex-col items-center text-center gap-3 hover:shadow-lg hover:-translate-y-1 hover:scale-[1.02] transition-all duration-300 cursor-default">
+            <div
+              key={f.title}
+              className="card-soft flex flex-col items-center text-center gap-3 hover:shadow-lg hover:-translate-y-1 hover:scale-[1.02] transition-all duration-300 cursor-default"
+            >
               <div className={`w-12 h-12 rounded-2xl ${f.color} flex items-center justify-center`}>
                 <f.icon className="w-6 h-6" />
               </div>
@@ -142,10 +184,14 @@ const Index = () => {
             <h2 className="font-display text-3xl text-foreground">Why This Matters</h2>
           </div>
           <p className="text-muted-foreground leading-relaxed mb-4">
-            In California, the communities most burdened by pollution are often the same ones with the least access to quality education, technology, and support services. This isn't a coincidence — it's a pattern rooted in decades of disinvestment.
+            In California, the communities most burdened by pollution are often the same ones with the least access to
+            quality education, technology, and support services. This isn't a coincidence — it's a pattern rooted in
+            decades of disinvestment.
           </p>
           <p className="text-muted-foreground leading-relaxed">
-            <strong className="text-foreground">CommPass</strong> exists to make the invisible visible. By mapping environmental data alongside community resources, we empower residents to advocate for themselves and connect to the support they deserve.
+            <strong className="text-foreground">CommPass</strong> exists to make the invisible visible. By mapping
+            environmental data alongside community resources, we empower residents to advocate for themselves and
+            connect to the support they deserve.
           </p>
         </div>
       </section>
@@ -159,7 +205,10 @@ const Index = () => {
               <h2 className="font-display text-3xl text-foreground">Where Do We Get Our Data?</h2>
             </div>
             <p className="text-muted-foreground">
-              Our environmental data comes from <strong className="text-foreground">CalEnviroScreen 5.0</strong>, a tool developed by the California Office of Environmental Health Hazard Assessment (OEHHA). It identifies communities most affected by pollution and vulnerability using 21 indicators across pollution burden and population characteristics.
+              Our environmental data comes from <strong className="text-foreground">CalEnviroScreen 5.0</strong>, a tool
+              developed by the California Office of Environmental Health Hazard Assessment (OEHHA). It identifies
+              communities most affected by pollution and vulnerability using 21 indicators across pollution burden and
+              population characteristics.
             </p>
           </div>
           <div className="card-soft max-w-4xl mx-auto">
@@ -167,7 +216,8 @@ const Index = () => {
               🗺️ CalEnviroScreen 5.0 — Environmental Burden Map
             </h3>
             <p className="text-sm text-muted-foreground mb-4">
-              Explore environmental health data for communities across California. This interactive map shows pollution burden and population vulnerability by census tract.
+              Explore environmental health data for communities across California. This interactive map shows pollution
+              burden and population vulnerability by census tract.
             </p>
             <div className="rounded-xl overflow-hidden border border-border" style={{ height: "500px" }}>
               <iframe
@@ -197,7 +247,7 @@ const Index = () => {
           <p className="font-display text-base text-foreground mb-1">CommPass</p>
           <p>Finding Common Ground Within Our Communities 💛</p>
           <div className="mt-4 text-xs text-muted-foreground">
-            <p className="font-semibold text-foreground/70 mb-1">ACM Hackathon 2026</p>
+            <p className="font-semibold text-foreground/70 mb-1">ACM DiamondHacks 2026</p>
             <p>Built by Leira Rullan, Alex Twano, Danica Navarro & Sophia Dinh</p>
           </div>
           <button
