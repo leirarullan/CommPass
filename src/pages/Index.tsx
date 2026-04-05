@@ -44,9 +44,12 @@ const Index = () => {
               <Compass className="w-4 h-4 text-primary" />
               <span className="text-sm font-semibold text-primary">Community · Environment · Education</span>
             </div>
-            <h1 className="font-display text-5xl sm:text-7xl text-foreground mb-3 leading-tight">
-              Comm<span className="text-primary">Pass</span>
-            </h1>
+            <div className="flex items-center justify-center gap-3 mb-3">
+              <img src={logo} alt="CommPass logo" className="w-14 h-14 sm:w-20 sm:h-20" />
+              <h1 className="font-display text-5xl sm:text-7xl text-foreground leading-tight">
+                Comm<span className="text-primary">Pass</span>
+              </h1>
+            </div>
             <p className="text-lg sm:text-xl text-muted-foreground mb-2 font-medium">
               Finding Common Ground Within Our Communities
             </p>
