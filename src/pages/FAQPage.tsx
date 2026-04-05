@@ -62,7 +62,7 @@ const FAQ_ITEMS: FAQItem[] = [
   {
     question: "How can I contribute resources to CommPass?",
     answer:
-      'If you know of a local library, program, community center, or service that others could benefit from, you can add it directly to the map!\n\n1. Search for your ZIP code or city\n2. Click **"Sign In"** to create a free account\n3. Click **"+ Add a Resource"** on the results page\n4. Fill in the details — name, description, category, and location\n\nYour contribution will appear on the map and help others in your community discover valuable resources they might not know about.',
+      'If you know of a local library, program, community center, or service that others could benefit from, you can add it directly to the map!\n\n1. Search for your ZIP code or city\n\n2. Click **"Sign In"** to create a free account\n\n3. Click **"+ Add a Resource"** on the results page\n\n4. Fill in the details — name, description, category, and location\n\nYour contribution will appear on the map and help others in your community discover valuable resources they might not know about.',
     icon: <Lightbulb className="w-5 h-5" />,
   },
   {
