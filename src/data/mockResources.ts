@@ -144,27 +144,14 @@ function estimateZipCoords(zip: string): { lat: number; lng: number } | null {
   return { lat: lower.lat + t * (upper.lat - lower.lat), lng: lower.lng + t * (upper.lng - lower.lng) };
 }
 
-export function getZipData(zip: string): ZipData {
-  if (ZIP_DATA[zip]) return ZIP_DATA[zip];
+export function getZipData(zip: string): ZipData | null {
+  return ZIP_DATA[zip] || null;
+}
 
-  // Find closest known ZIP by geographic proximity
-  const estimated = estimateZipCoords(zip);
-  if (estimated) {
-    let closest: ZipData | null = null;
-    let minDist = Infinity;
-    for (const entry of Object.values(ZIP_DATA)) {
-      const d = haversine(estimated.lat, estimated.lng, entry.lat, entry.lng);
-      if (d < minDist) {
-        minDist = d;
-        closest = entry;
-      }
-    }
-    if (closest) {
-      return { ...closest, zip, city: closest.city };
-    }
-  }
-
-  return { ...DEFAULT_ZIP, zip, city: `ZIP ${zip} Area` };
+export function isValidLocation(query: string): boolean {
+  const trimmed = query.trim();
+  if (/^\d{5}$/.test(trimmed)) return !!ZIP_DATA[trimmed];
+  return !!lookupCityToZip(trimmed);
 }
 
 export function getResourcesForZip(zip: string): Resource[] {
