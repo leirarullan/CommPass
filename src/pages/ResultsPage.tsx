@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { ArrowLeft, Sparkles, Search, Edit2 } from "lucide-react";
+import logo from "@/assets/logo.png";
 import { getZipData, getResourcesForZip, generateCommunityExplanation, lookupCityToZip, type Resource, type ResourceCategory, type CommunityReview } from "@/data/mockResources";
 import { SD_LIBRARIES } from "@/data/sdLibraries";
 import { LA_LIBRARIES } from "@/data/laLibraries";
@@ -181,7 +182,10 @@ const ResultsPage = () => {
           <button onClick={() => navigate("/")} className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors">
             <ArrowLeft className="w-4 h-4" /> Back
           </button>
-          <h1 className="font-display text-xl text-foreground">Comm<span className="text-primary">Pass</span></h1>
+          <button onClick={() => navigate("/")} className="flex items-center gap-2 hover:opacity-80 transition-opacity">
+            <img src={logo} alt="CommPass logo" className="w-8 h-8" />
+            <span className="font-display text-xl text-foreground">Comm<span className="text-primary">Pass</span></span>
+          </button>
           <div className="w-16" />
         </div>
       </header>
