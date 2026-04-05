@@ -7,6 +7,7 @@ import { AuthProvider } from "@/contexts/AuthContext";
 import Index from "./pages/Index.tsx";
 import ResultsPage from "./pages/ResultsPage.tsx";
 import NotFound from "./pages/NotFound.tsx";
+import FAQPage from "./pages/FAQPage.tsx";
 import ScrollToTop from "./components/ScrollToTop.tsx";
 
 const queryClient = new QueryClient();
@@ -22,6 +23,7 @@ const App = () => (
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/results/:zip" element={<ResultsPage />} />
+            <Route path="/faq" element={<FAQPage />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
