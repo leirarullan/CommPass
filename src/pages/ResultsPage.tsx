@@ -1,14 +1,18 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { ArrowLeft, Sparkles } from "lucide-react";
-import { getZipData, getResourcesForZip, generateCommunityExplanation, type Resource, type ResourceCategory } from "@/data/mockResources";
+import { getZipData, getResourcesForZip, generateCommunityExplanation, type Resource, type ResourceCategory, type CommunityReview } from "@/data/mockResources";
 import ResourceMap from "@/components/ResourceMap";
 import ResourceList from "@/components/ResourceList";
 import FilterBar from "@/components/FilterBar";
 import AddResourceForm from "@/components/AddResourceForm";
 import AIChatBox from "@/components/AIChatBox";
+import ResourceDetailDialog from "@/components/ResourceDetailDialog";
+import { Switch } from "@/components/ui/switch";
+import { Label } from "@/components/ui/label";
 
 const STORAGE_KEY = "cg_community_resources";
+const REVIEWS_KEY = "cg_resource_reviews";
 
 const ResultsPage = () => {
   const { zip } = useParams<{ zip: string }>();
@@ -23,11 +27,27 @@ const ResultsPage = () => {
     } catch { return []; }
   });
 
-  const allResources = [...baseResources, ...communityResources];
+  const [reviews, setReviews] = useState<Record<string, CommunityReview[]>>(() => {
+    try {
+      const saved = localStorage.getItem(REVIEWS_KEY);
+      return saved ? JSON.parse(saved) : {};
+    } catch { return {}; }
+  });
+
+  const [showCommunity, setShowCommunity] = useState(true);
   const [activeFilters, setActiveFilters] = useState<ResourceCategory[]>([]);
   const [showExplanation, setShowExplanation] = useState(false);
   const [showAddForm, setShowAddForm] = useState(false);
   const [selectedResource, setSelectedResource] = useState<Resource | null>(null);
+  const [detailOpen, setDetailOpen] = useState(false);
+
+  // Merge reviews into resources
+  const enrichResources = (resources: Resource[]) =>
+    resources.map((r) => ({ ...r, reviews: reviews[r.id] || [] }));
+
+  const allResources = showCommunity
+    ? enrichResources([...baseResources, ...communityResources])
+    : enrichResources(baseResources);
 
   const filtered = activeFilters.length === 0
     ? allResources
@@ -37,9 +57,31 @@ const ResultsPage = () => {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(communityResources));
   }, [communityResources]);
 
+  useEffect(() => {
+    localStorage.setItem(REVIEWS_KEY, JSON.stringify(reviews));
+  }, [reviews]);
+
   const handleAddResource = (r: Resource) => {
     setCommunityResources((prev) => [...prev, r]);
     setShowAddForm(false);
+  };
+
+  const handleSelectResource = (r: Resource) => {
+    setSelectedResource(r);
+    setDetailOpen(true);
+  };
+
+  const handleAddReview = (resourceId: string, review: CommunityReview) => {
+    setReviews((prev) => ({
+      ...prev,
+      [resourceId]: [...(prev[resourceId] || []), review],
+    }));
+    // Update selected resource so dialog shows it immediately
+    if (selectedResource?.id === resourceId) {
+      setSelectedResource((prev) =>
+        prev ? { ...prev, reviews: [...(prev.reviews || []), review] } : prev
+      );
+    }
   };
 
   const explanation = generateCommunityExplanation(data);
@@ -84,9 +126,21 @@ const ResultsPage = () => {
           )}
         </section>
 
-        {/* Filters + Add */}
+        {/* Filters + Toggle + Add */}
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-          <FilterBar activeFilters={activeFilters} onChange={setActiveFilters} />
+          <div className="flex items-center gap-4 flex-wrap">
+            <FilterBar activeFilters={activeFilters} onChange={setActiveFilters} />
+            <div className="flex items-center gap-2">
+              <Switch
+                id="community-toggle"
+                checked={showCommunity}
+                onCheckedChange={setShowCommunity}
+              />
+              <Label htmlFor="community-toggle" className="text-sm text-muted-foreground cursor-pointer">
+                Community places
+              </Label>
+            </div>
+          </div>
           <button onClick={() => setShowAddForm(!showAddForm)} className="btn-accent text-sm py-2 px-4">
             + Add a Resource
           </button>
@@ -126,25 +180,29 @@ const ResultsPage = () => {
               center={[data.lat, data.lng]}
               resources={filtered}
               selected={selectedResource}
-              onSelect={setSelectedResource}
+              onSelect={handleSelectResource}
             />
           </div>
           <div className="lg:col-span-2">
             <ResourceList
               resources={filtered}
               selected={selectedResource}
-              onSelect={setSelectedResource}
+              onSelect={handleSelectResource}
             />
           </div>
         </div>
 
         {/* Community Submissions */}
-        {communityResources.length > 0 && (
+        {communityResources.length > 0 && showCommunity && (
           <section>
             <h3 className="font-display text-xl text-foreground mb-4">🌟 From the Community</h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {communityResources.map((r) => (
-                <div key={r.id} className="card-soft border-l-4 border-l-accent">
+                <button
+                  key={r.id}
+                  onClick={() => handleSelectResource(r)}
+                  className="card-soft border-l-4 border-l-accent text-left hover:shadow-md transition-shadow"
+                >
                   <span className="text-xs font-semibold text-accent uppercase tracking-wider">Community Submitted</span>
                   <h4 className="font-semibold text-foreground mt-1">{r.name}</h4>
                   <p className="text-sm text-muted-foreground mt-1">{r.description}</p>
@@ -153,12 +211,20 @@ const ResultsPage = () => {
                       "{r.communityNote}"
                     </p>
                   )}
-                </div>
+                </button>
               ))}
             </div>
           </section>
         )}
       </div>
+
+      {/* Resource Detail Dialog */}
+      <ResourceDetailDialog
+        resource={selectedResource}
+        open={detailOpen}
+        onOpenChange={setDetailOpen}
+        onAddReview={handleAddReview}
+      />
 
       {/* AI Chat */}
       <AIChatBox />
