@@ -232,7 +232,9 @@ const ResultsPage = () => {
           </div>
         </div>
 
-        {/* Community Submissions */}
+        {/* UC Links Programs */}
+        <UCLinksSection programs={ucLinksPrograms} allPrograms={allUCLinksPrograms} />
+
         {communityResources.length > 0 && showCommunity && (
           <section>
             <h3 className="font-display text-xl text-foreground mb-4">🌟 From the Community</h3>
