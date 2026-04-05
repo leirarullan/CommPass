@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { ArrowLeft, Sparkles } from "lucide-react";
 import { getZipData, getResourcesForZip, generateCommunityExplanation, type Resource, type ResourceCategory, type CommunityReview } from "@/data/mockResources";
+import { SD_LIBRARIES } from "@/data/sdLibraries";
 import ResourceMap from "@/components/ResourceMap";
 import ResourceList from "@/components/ResourceList";
 import FilterBar from "@/components/FilterBar";
@@ -18,7 +19,9 @@ const ResultsPage = () => {
   const { zip } = useParams<{ zip: string }>();
   const navigate = useNavigate();
   const data = getZipData(zip || "");
-  const baseResources = getResourcesForZip(zip || "");
+  const mockResources = getResourcesForZip(zip || "");
+  const isSanDiego = data.city === "San Diego";
+  const baseResources = isSanDiego ? [...mockResources, ...SD_LIBRARIES] : mockResources;
 
   const [communityResources, setCommunityResources] = useState<Resource[]>(() => {
     try {
