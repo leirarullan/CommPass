@@ -3,6 +3,8 @@ import { useParams, useNavigate } from "react-router-dom";
 import { ArrowLeft, Sparkles, Search } from "lucide-react";
 import { getZipData, getResourcesForZip, generateCommunityExplanation, type Resource, type ResourceCategory, type CommunityReview } from "@/data/mockResources";
 import { SD_LIBRARIES } from "@/data/sdLibraries";
+import { LA_LIBRARIES } from "@/data/laLibraries";
+import { FRESNO_LIBRARIES } from "@/data/fresnoLibraries";
 import ResourceMap from "@/components/ResourceMap";
 import ResourceList from "@/components/ResourceList";
 import FilterBar from "@/components/FilterBar";
@@ -20,8 +22,11 @@ const ResultsPage = () => {
   const navigate = useNavigate();
   const data = getZipData(zip || "");
   const mockResources = getResourcesForZip(zip || "");
-  const isSanDiego = data.city === "San Diego";
-  const baseResources = isSanDiego ? [...mockResources, ...SD_LIBRARIES] : mockResources;
+  const cityLibraries = data.city === "San Diego" ? SD_LIBRARIES
+    : data.city === "Los Angeles" ? LA_LIBRARIES
+    : data.city === "Fresno" ? FRESNO_LIBRARIES
+    : [];
+  const baseResources = [...mockResources, ...cityLibraries];
 
   const [communityResources, setCommunityResources] = useState<Resource[]>(() => {
     try {
