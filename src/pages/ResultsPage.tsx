@@ -272,6 +272,7 @@ const ResultsPage = () => {
               selected={selectedResource}
               onSelect={handleSelectResource}
               percentile={data.percentile}
+              showOverlay={showOverlay}
             />
           </div>
           <div className="lg:col-span-2 relative">
