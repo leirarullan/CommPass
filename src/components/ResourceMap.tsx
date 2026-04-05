@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
-import { type Resource, CATEGORY_ICONS } from "@/data/mockResources";
+import { type Resource, CATEGORY_ICONS, ZIP_DATA } from "@/data/mockResources";
 
 import markerIcon2x from "leaflet/dist/images/marker-icon-2x.png";
 import markerIcon from "leaflet/dist/images/marker-icon.png";
@@ -24,17 +24,28 @@ function createIcon(category: string, isUCLinks?: boolean) {
   });
 }
 
+// Interpolate from green (low percentile) to red (high percentile)
+function percentileToColor(percentile: number): string {
+  // Clamp 0-100
+  const p = Math.max(0, Math.min(100, percentile));
+  // 0 = green (120°), 100 = red (0°)
+  const hue = 120 - (p / 100) * 120;
+  return `hsl(${hue}, 70%, 50%)`;
+}
+
 interface Props {
   center: [number, number];
   resources: Resource[];
   selected: Resource | null;
   onSelect: (r: Resource) => void;
+  percentile?: number;
 }
 
-const ResourceMap = ({ center, resources, selected, onSelect }: Props) => {
+const ResourceMap = ({ center, resources, selected, onSelect, percentile }: Props) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<L.Map | null>(null);
   const markersRef = useRef<L.LayerGroup | null>(null);
+  const overlaysRef = useRef<L.LayerGroup | null>(null);
 
   // Initialize map
   useEffect(() => {
@@ -45,11 +56,13 @@ const ResourceMap = ({ center, resources, selected, onSelect }: Props) => {
     }).addTo(map);
     mapRef.current = map;
     markersRef.current = L.layerGroup().addTo(map);
+    overlaysRef.current = L.layerGroup().addTo(map);
 
     return () => {
       map.remove();
       mapRef.current = null;
       markersRef.current = null;
+      overlaysRef.current = null;
     };
   }, []);
 
@@ -57,6 +70,43 @@ const ResourceMap = ({ center, resources, selected, onSelect }: Props) => {
   useEffect(() => {
     mapRef.current?.setView(center, 14);
   }, [center]);
+
+  // Draw pollution overlays for nearby ZIP areas
+  useEffect(() => {
+    if (!overlaysRef.current || !mapRef.current) return;
+    overlaysRef.current.clearLayers();
+
+    const mapCenter = mapRef.current.getCenter();
+    const nearbyZips = Object.values(ZIP_DATA).filter((z) => {
+      const dist = mapCenter.distanceTo(L.latLng(z.lat, z.lng));
+      return dist < 50000; // 50km radius
+    });
+
+    nearbyZips.forEach((z) => {
+      const color = percentileToColor(z.percentile);
+      L.circle([z.lat, z.lng], {
+        radius: 1200,
+        color: color,
+        fillColor: color,
+        fillOpacity: 0.18,
+        weight: 1.5,
+        opacity: 0.4,
+      }).addTo(overlaysRef.current!);
+    });
+
+    // If no nearby known ZIPs but we have a percentile, show overlay at center
+    if (nearbyZips.length === 0 && percentile !== undefined) {
+      const color = percentileToColor(percentile);
+      L.circle(center, {
+        radius: 1200,
+        color: color,
+        fillColor: color,
+        fillOpacity: 0.18,
+        weight: 1.5,
+        opacity: 0.4,
+      }).addTo(overlaysRef.current!);
+    }
+  }, [center, percentile]);
 
   // Update markers
   useEffect(() => {
