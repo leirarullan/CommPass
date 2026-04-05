@@ -189,9 +189,24 @@ const ResultsPage = () => {
           <button onClick={() => navigate("/")} className="flex items-center gap-2 hover:opacity-80 transition-opacity">
             <span className="font-display text-xl text-foreground">Comm<span className="text-primary">Pass</span></span>
           </button>
-          <div className="w-16" />
+          {user ? (
+            <div className="flex items-center gap-3">
+              <span className="text-sm text-foreground flex items-center gap-1">
+                <CheckCircle2 className="w-3.5 h-3.5 text-primary" />
+                {profile?.display_name || "User"}
+              </span>
+              <button onClick={signOut} className="text-sm text-muted-foreground hover:text-foreground flex items-center gap-1">
+                <LogOut className="w-3.5 h-3.5" />
+              </button>
+            </div>
+          ) : (
+            <button onClick={() => setShowAuth(true)} className="btn-primary text-sm py-1.5 px-4 flex items-center gap-1.5">
+              <LogIn className="w-3.5 h-3.5" /> Sign In
+            </button>
+          )}
         </div>
       </header>
+      <AuthModal open={showAuth} onClose={() => setShowAuth(false)} />
 
       <div className="section-container py-8 space-y-8">
         {/* Community Insight */}
