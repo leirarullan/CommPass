@@ -238,6 +238,16 @@ const ResultsPage = () => {
                   Community places
                 </Label>
               </div>
+              <div className="flex items-center gap-2">
+                <Switch
+                  id="overlay-toggle"
+                  checked={showOverlay}
+                  onCheckedChange={setShowOverlay}
+                />
+                <Label htmlFor="overlay-toggle" className="text-sm text-muted-foreground cursor-pointer">
+                  Pollution overlay
+                </Label>
+              </div>
             </div>
             <button onClick={() => setShowAddForm(!showAddForm)} className="btn-accent text-sm py-2 px-4">
               + Add a Resource
