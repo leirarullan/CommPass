@@ -7,6 +7,7 @@ import UCLinksSection from "@/components/UCLinksSection";
 const Index = () => {
   const [zip, setZip] = useState("");
   const navigate = useNavigate();
+  const allPrograms = getAllUCLinksPrograms();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
