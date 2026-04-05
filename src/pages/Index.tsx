@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Search, Compass, BookOpen, Users, Wifi, GraduationCap, ArrowRight, Heart, Sparkles, Database, LogIn, LogOut, CheckCircle2 } from "lucide-react";
+import { Search, Compass, BookOpen, Users, Wifi, GraduationCap, ArrowRight, Heart, Sparkles, Database, LogIn, LogOut, CheckCircle2, HelpCircle } from "lucide-react";
 import { getAllUCLinksPrograms } from "@/data/ucLinksPrograms";
 import { lookupCityToZip, isValidLocation } from "@/data/mockResources";
 import UCLinksSection from "@/components/UCLinksSection";
@@ -196,6 +196,12 @@ const Index = () => {
         <div className="section-container text-center text-sm text-muted-foreground">
           <p className="font-display text-base text-foreground mb-1">CommPass</p>
           <p>Finding Common Ground Within Our Communities 💛</p>
+          <button
+            onClick={() => navigate("/faq")}
+            className="mt-3 inline-flex items-center gap-1.5 text-primary font-semibold hover:underline text-sm"
+          >
+            <HelpCircle className="w-4 h-4" /> Frequently Asked Questions
+          </button>
         </div>
       </footer>
     </div>
