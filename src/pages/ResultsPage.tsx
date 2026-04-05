@@ -117,6 +117,14 @@ const ResultsPage = () => {
   const [detailOpen, setDetailOpen] = useState(false);
   const [showOverlay, setShowOverlay] = useState(true);
 
+  useEffect(() => {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(communityResources));
+  }, [communityResources]);
+
+  useEffect(() => {
+    localStorage.setItem(REVIEWS_KEY, JSON.stringify(reviews));
+  }, [reviews]);
+
   const data = getZipData(zip || "");
 
   // If ZIP is not in our database, show a friendly message
