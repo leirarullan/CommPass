@@ -39,9 +39,10 @@ interface Props {
   selected: Resource | null;
   onSelect: (r: Resource) => void;
   percentile?: number;
+  showOverlay?: boolean;
 }
 
-const ResourceMap = ({ center, resources, selected, onSelect, percentile }: Props) => {
+const ResourceMap = ({ center, resources, selected, onSelect, percentile, showOverlay = true }: Props) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<L.Map | null>(null);
   const markersRef = useRef<L.LayerGroup | null>(null);
@@ -75,6 +76,7 @@ const ResourceMap = ({ center, resources, selected, onSelect, percentile }: Prop
   useEffect(() => {
     if (!overlaysRef.current || !mapRef.current) return;
     overlaysRef.current.clearLayers();
+    if (!showOverlay) return;
 
     const mapCenter = mapRef.current.getCenter();
     const nearbyZips = Object.values(ZIP_DATA).filter((z) => {
@@ -106,7 +108,7 @@ const ResourceMap = ({ center, resources, selected, onSelect, percentile }: Prop
         opacity: 0.4,
       }).addTo(overlaysRef.current!);
     }
-  }, [center, percentile]);
+  }, [center, percentile, showOverlay]);
 
   // Update markers
   useEffect(() => {
@@ -134,11 +136,23 @@ const ResourceMap = ({ center, resources, selected, onSelect, percentile }: Prop
   }, [selected]);
 
   return (
-    <div
-      ref={containerRef}
-      className="rounded-2xl overflow-hidden border border-border shadow-sm"
-      style={{ height: "480px" }}
-    />
+    <div className="relative">
+      <div
+        ref={containerRef}
+        className="rounded-2xl overflow-hidden border border-border shadow-sm"
+        style={{ height: "480px" }}
+      />
+      {showOverlay && (
+        <div className="absolute bottom-3 left-3 z-[1000] bg-card/90 backdrop-blur-sm rounded-lg border border-border px-3 py-2 shadow-md">
+          <p className="text-xs font-semibold text-foreground mb-1.5">Environmental Impact</p>
+          <div className="flex items-center gap-1.5">
+            <span className="text-[10px] text-muted-foreground">Better</span>
+            <div className="h-2 w-24 rounded-full" style={{ background: "linear-gradient(to right, hsl(120,70%,50%), hsl(60,70%,50%), hsl(0,70%,50%))" }} />
+            <span className="text-[10px] text-muted-foreground">Worse</span>
+          </div>
+        </div>
+      )}
+    </div>
   );
 };
 
