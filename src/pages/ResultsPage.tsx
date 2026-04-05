@@ -24,8 +24,10 @@ const ResultsPage = () => {
   const navigate = useNavigate();
   const data = getZipData(zip || "");
   const mockResources = getResourcesForZip(zip || "");
-  const cityLibraries = data.city === "San Diego" ? SD_LIBRARIES
-    : data.city === "Los Angeles" ? LA_LIBRARIES
+  const sdAreaCities = ["San Diego", "National City", "Chula Vista", "San Ysidro"];
+  const laAreaCities = ["Los Angeles", "Huntington Park", "South Gate", "Compton"];
+  const cityLibraries = sdAreaCities.includes(data.city) ? SD_LIBRARIES
+    : laAreaCities.includes(data.city) ? LA_LIBRARIES
     : data.city === "Fresno" ? FRESNO_LIBRARIES
     : [];
   const ucLinksResources = getUCLinksResourcesForCity(data.city);
