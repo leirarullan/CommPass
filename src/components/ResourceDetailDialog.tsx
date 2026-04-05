@@ -39,6 +39,7 @@ const maskName = (name: string) => {
 const ResourceDetailDialog = ({ resource, open, onOpenChange, onAddReview, user, profile, onRequestAuth }: Props) => {
   const [imgIdx, setImgIdx] = useState(0);
   const [reviewText, setReviewText] = useState("");
+  const [skippedAuth, setSkippedAuth] = useState(false);
   const inputRef = useRef<HTMLTextAreaElement>(null);
 
   if (!resource || !open) return null;
@@ -50,12 +51,6 @@ const ResourceDetailDialog = ({ resource, open, onOpenChange, onAddReview, user,
   const nextImg = () => setImgIdx((i) => (i === images.length - 1 ? 0 : i + 1));
 
   const handleSubmitReview = () => {
-    if (!user) {
-      onRequestAuth?.();
-      toast.info("Sign in to leave a review.");
-      return;
-    }
-
     const result = moderateReview(reviewText);
 
     if (!result.approved) {
@@ -63,7 +58,8 @@ const ResourceDetailDialog = ({ resource, open, onOpenChange, onAddReview, user,
       return;
     }
 
-    const displayName = profile?.display_name || "User";
+    const isVerified = !!user;
+    const displayName = isVerified ? (profile?.display_name || "User") : "Anonymous";
 
     const review: CommunityReview = {
       id: crypto.randomUUID(),
@@ -71,8 +67,8 @@ const ResourceDetailDialog = ({ resource, open, onOpenChange, onAddReview, user,
       text: reviewText.trim(),
       date: new Date().toLocaleDateString(),
       approved: true,
-      verified: true,
-      verifiedName: displayName,
+      verified: isVerified,
+      verifiedName: isVerified ? displayName : undefined,
     };
 
     onAddReview(resource.id, review);
@@ -225,13 +221,47 @@ const ResourceDetailDialog = ({ resource, open, onOpenChange, onAddReview, user,
                 <ShieldCheck className="w-3 h-3" /> Reviews are filtered by AI moderation before publishing.
               </p>
             </div>
+          ) : skippedAuth ? (
+            <div className="space-y-2">
+              <p className="text-xs text-muted-foreground">
+                Posting as <strong className="text-foreground">Anonymous</strong> (no verified badge)
+              </p>
+              <div className="flex gap-2">
+                <textarea
+                  ref={inputRef}
+                  placeholder="Write a review…"
+                  value={reviewText}
+                  onChange={(e) => setReviewText(e.target.value)}
+                  rows={2}
+                  className="flex-1 text-sm rounded-xl border border-border bg-background px-3 py-2 resize-none focus:outline-none focus:ring-2 focus:ring-primary"
+                />
+                <button
+                  onClick={handleSubmitReview}
+                  disabled={!reviewText.trim()}
+                  className="btn-primary self-end px-3 py-2 disabled:opacity-40"
+                >
+                  <Send className="w-4 h-4" />
+                </button>
+              </div>
+              <p className="text-[10px] text-muted-foreground flex items-center gap-1">
+                <ShieldCheck className="w-3 h-3" /> Reviews are filtered by AI moderation before publishing.
+              </p>
+            </div>
           ) : (
-            <button
-              onClick={() => onRequestAuth?.()}
-              className="btn-primary text-sm py-2 w-full"
-            >
-              Sign in to leave a review
-            </button>
+            <div className="space-y-2">
+              <button
+                onClick={() => onRequestAuth?.()}
+                className="btn-primary text-sm py-2 w-full"
+              >
+                Sign in to leave a verified review
+              </button>
+              <button
+                onClick={() => setSkippedAuth(true)}
+                className="text-sm text-muted-foreground hover:text-foreground transition-colors w-full text-center"
+              >
+                Skip and leave a review anyway →
+              </button>
+            </div>
           )}
         </div>
       </div>
