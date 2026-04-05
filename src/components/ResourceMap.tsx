@@ -76,6 +76,7 @@ const ResourceMap = ({ center, resources, selected, onSelect, percentile, showOv
   useEffect(() => {
     if (!overlaysRef.current || !mapRef.current) return;
     overlaysRef.current.clearLayers();
+    if (!showOverlay) return;
 
     const mapCenter = mapRef.current.getCenter();
     const nearbyZips = Object.values(ZIP_DATA).filter((z) => {
