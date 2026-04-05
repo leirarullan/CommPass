@@ -28,7 +28,10 @@ const ResultsPage = () => {
     : data.city === "Los Angeles" ? LA_LIBRARIES
     : data.city === "Fresno" ? FRESNO_LIBRARIES
     : [];
-  const baseResources = [...mockResources, ...cityLibraries];
+  const ucLinksResources = getUCLinksResourcesForCity(data.city);
+  const ucLinksPrograms = getUCLinksProgramsForCity(data.city);
+  const allUCLinksPrograms = getAllUCLinksPrograms();
+  const baseResources = [...mockResources, ...cityLibraries, ...ucLinksResources];
 
   const [communityResources, setCommunityResources] = useState<Resource[]>(() => {
     try {
