@@ -19,6 +19,72 @@ import { Label } from "@/components/ui/label";
 const STORAGE_KEY = "cg_community_resources";
 const REVIEWS_KEY = "cg_resource_reviews";
 
+const LocationSearch = ({ city, zip, percentile, onNavigate }: { city: string; zip: string; percentile: number; onNavigate: (zip: string) => void }) => {
+  const [editing, setEditing] = useState(false);
+  const [query, setQuery] = useState("");
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (editing) inputRef.current?.focus();
+  }, [editing]);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const trimmed = query.trim();
+    if (!trimmed) { setEditing(false); return; }
+    if (/^\d{5}$/.test(trimmed)) {
+      onNavigate(trimmed);
+      setEditing(false);
+      return;
+    }
+    const found = lookupCityToZip(trimmed);
+    if (found) {
+      onNavigate(found);
+      setEditing(false);
+    }
+  };
+
+  if (editing) {
+    return (
+      <div>
+        <form onSubmit={handleSubmit} className="flex items-center gap-2">
+          <div className="relative flex-1">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+            <input
+              ref={inputRef}
+              type="text"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              onBlur={() => { if (!query.trim()) setEditing(false); }}
+              placeholder="City name or ZIP code"
+              className="w-full pl-9 pr-4 py-2 rounded-full border border-border bg-card text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/40 text-base"
+            />
+          </div>
+          <button type="submit" className="btn-primary py-2 px-4 text-sm">Go</button>
+          <button type="button" onClick={() => setEditing(false)} className="text-sm text-muted-foreground hover:text-foreground">Cancel</button>
+        </form>
+      </div>
+    );
+  }
+
+  return (
+    <div>
+      <button
+        onClick={() => { setQuery(""); setEditing(true); }}
+        className="group flex items-center gap-2 mb-1"
+      >
+        <h2 className="font-display text-2xl text-foreground">
+          {city} — ZIP {zip}
+        </h2>
+        <Edit2 className="w-4 h-4 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity" />
+      </button>
+      <p className="text-muted-foreground">
+        Your area is in the <strong className="text-accent">top {percentile}%</strong> most environmentally impacted in California.
+      </p>
+    </div>
+  );
+};
+
 const ResultsPage = () => {
   const { zip } = useParams<{ zip: string }>();
   const navigate = useNavigate();
