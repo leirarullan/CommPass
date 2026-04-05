@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { ArrowLeft, Sparkles, Search, Edit2, LogIn, LogOut, CheckCircle2 } from "lucide-react";
+import { ArrowLeft, Sparkles, Search, Edit2, LogIn, LogOut, CheckCircle2, Trash2 } from "lucide-react";
 import { getZipData, getResourcesForZip, generateCommunityExplanation, lookupCityToZip, type Resource, type ResourceCategory, type CommunityReview } from "@/data/mockResources";
 import { SD_LIBRARIES } from "@/data/sdLibraries";
 import { LA_LIBRARIES } from "@/data/laLibraries";
@@ -156,6 +156,15 @@ const ResultsPage = () => {
   const handleAddResource = (r: Resource) => {
     setCommunityResources((prev) => [...prev, r]);
     setShowAddForm(false);
+  };
+
+  const handleDeleteCommunityResource = (id: string) => {
+    setCommunityResources((prev) => prev.filter((r) => r.id !== id));
+    if (selectedResource?.id === id) {
+      setSelectedResource(null);
+      setDetailOpen(false);
+    }
+    toast.success("Community resource deleted.");
   };
 
   const handleSelectResource = (r: Resource) => {
@@ -328,20 +337,30 @@ const ResultsPage = () => {
             <h3 className="font-display text-xl text-foreground mb-4">🌟 From the Community</h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {communityResources.map((r) => (
-                <button
-                  key={r.id}
-                  onClick={() => handleSelectResource(r)}
-                  className="card-soft border-l-4 border-l-accent text-left hover:shadow-md transition-shadow"
-                >
-                  <span className="text-xs font-semibold text-accent uppercase tracking-wider">Community Submitted</span>
-                  <h4 className="font-semibold text-foreground mt-1">{r.name}</h4>
-                  <p className="text-sm text-muted-foreground mt-1">{r.description}</p>
-                  {r.communityNote && (
-                    <p className="text-sm italic text-muted-foreground mt-2 border-t border-border pt-2">
-                      "{r.communityNote}"
-                    </p>
+                <div key={r.id} className="card-soft border-l-4 border-l-accent text-left hover:shadow-md transition-shadow relative">
+                  <button
+                    onClick={() => handleSelectResource(r)}
+                    className="w-full text-left"
+                  >
+                    <span className="text-xs font-semibold text-accent uppercase tracking-wider">Community Submitted</span>
+                    <h4 className="font-semibold text-foreground mt-1">{r.name}</h4>
+                    <p className="text-sm text-muted-foreground mt-1">{r.description}</p>
+                    {r.communityNote && (
+                      <p className="text-sm italic text-muted-foreground mt-2 border-t border-border pt-2">
+                        "{r.communityNote}"
+                      </p>
+                    )}
+                  </button>
+                  {user && (
+                    <button
+                      onClick={(e) => { e.stopPropagation(); handleDeleteCommunityResource(r.id); }}
+                      className="absolute top-3 right-3 p-1.5 rounded-full text-muted-foreground hover:text-destructive hover:bg-destructive/10 transition-colors"
+                      title="Delete resource"
+                    >
+                      <Trash2 className="w-4 h-4" />
+                    </button>
                   )}
-                </button>
+                </div>
               ))}
             </div>
           </section>
