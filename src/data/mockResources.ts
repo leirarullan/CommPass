@@ -53,6 +53,7 @@ export const ZIP_DATA: Record<string, ZipData> = {
   "92114": { zip: "92114", lat: 32.7074, lng: -117.0530, city: "San Diego", percentile: 85, pollutionFactors: ["traffic pollution", "ozone levels", "toxic releases"], accessIssues: ["language barriers", "limited free programs", "digital divide"] },
   "91911": { zip: "91911", lat: 32.6189, lng: -117.0542, city: "Chula Vista", percentile: 80, pollutionFactors: ["traffic pollution", "ozone levels", "hazardous waste"], accessIssues: ["language barriers", "limited tutoring", "few libraries"] },
   "92173": { zip: "92173", lat: 32.5560, lng: -117.0590, city: "San Ysidro", percentile: 92, pollutionFactors: ["traffic pollution", "diesel emissions", "border pollution"], accessIssues: ["language barriers", "limited resources", "digital divide"] },
+  "92093": { zip: "92093", lat: 32.8801, lng: -117.2340, city: "La Jolla", percentile: 45, pollutionFactors: ["traffic density", "ozone levels"], accessIssues: ["high housing costs", "limited public transit"] },
   // Oakland area
   "94601": { zip: "94601", lat: 37.7752, lng: -122.2141, city: "Oakland", percentile: 88, pollutionFactors: ["lead exposure risk", "diesel emissions", "cleanup sites"], accessIssues: ["digital divide", "limited ESL programs", "overcrowded schools"] },
   "94603": { zip: "94603", lat: 37.7380, lng: -122.1780, city: "Oakland", percentile: 90, pollutionFactors: ["diesel emissions", "PM2.5", "toxic releases"], accessIssues: ["limited tutoring", "overcrowded schools", "digital divide"] },
@@ -83,7 +84,7 @@ const CITY_TO_ZIP: Record<string, string> = {
   "los angeles": "90011", "la": "90011",
   "fresno": "93706",
   "san diego": "92113", "national city": "91950", "chula vista": "91911", "san ysidro": "92173",
-  "la jolla": "92113", "ocean beach": "92113", "barrio logan": "92113",
+  "la jolla": "92093", "ocean beach": "92113", "barrio logan": "92113",
   "oakland": "94601", "east oakland": "94603",
   "san francisco": "94124", "sf": "94124", "bayview": "94124", "hunters point": "94124", "visitacion valley": "94134",
   "san jose": "95116",
