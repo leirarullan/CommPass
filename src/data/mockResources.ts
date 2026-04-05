@@ -122,6 +122,7 @@ export function isValidLocation(query: string): boolean {
 
 export function getResourcesForZip(zip: string): Resource[] {
   const data = getZipData(zip);
+  if (!data) return [];
   const { lat, lng } = data;
   return [
     { id: "1", name: `${data.city} Public Library`, description: "Free computer access, printing, and digital literacy classes. Open 6 days a week.", category: "Technology", lat: lat + 0.008, lng: lng - 0.005, address: `123 Main St, ${data.city}`, distance: "0.3 mi", images: ["https://images.unsplash.com/photo-1521587760476-6c12a4b040da?w=600&h=400&fit=crop"] },
