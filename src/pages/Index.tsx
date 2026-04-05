@@ -2,10 +2,11 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Search, Compass, BookOpen, Users, Wifi, GraduationCap, ArrowRight, Heart, Sparkles, Database, LogIn, LogOut, CheckCircle2 } from "lucide-react";
 import { getAllUCLinksPrograms } from "@/data/ucLinksPrograms";
-import { lookupCityToZip } from "@/data/mockResources";
+import { lookupCityToZip, isValidLocation } from "@/data/mockResources";
 import UCLinksSection from "@/components/UCLinksSection";
 import { useAuth } from "@/contexts/AuthContext";
 import AuthModal from "@/components/AuthModal";
+import { toast } from "sonner";
 
 const Index = () => {
   const [query, setQuery] = useState("");
@@ -18,6 +19,11 @@ const Index = () => {
     e.preventDefault();
     const trimmed = query.trim();
     if (!trimmed) return;
+
+    if (!isValidLocation(trimmed)) {
+      toast.error("We don't have data for that location yet. Try a supported California city or ZIP code.", { duration: 5000 });
+      return;
+    }
     
     // Check if it's a ZIP code (all digits, 5 chars)
     if (/^\d{5}$/.test(trimmed)) {
