@@ -196,6 +196,10 @@ const Index = () => {
         <div className="section-container text-center text-sm text-muted-foreground">
           <p className="font-display text-base text-foreground mb-1">CommPass</p>
           <p>Finding Common Ground Within Our Communities 💛</p>
+          <div className="mt-4 text-xs text-muted-foreground">
+            <p className="font-semibold text-foreground/70 mb-1">ACM Hackathon 2026</p>
+            <p>Built by Leira Rullan, Alex Twano, Danica Navarro & Sophia Dinh</p>
+          </div>
           <button
             onClick={() => navigate("/faq")}
             className="mt-3 inline-flex items-center gap-1.5 text-primary font-semibold hover:underline text-sm"
