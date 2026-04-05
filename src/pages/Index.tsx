@@ -105,7 +105,48 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Footer */}
+      {/* Where Do We Get Our Data? */}
+      <section className="bg-muted/40 py-16">
+        <div className="section-container">
+          <div className="max-w-3xl mx-auto text-center mb-8">
+            <div className="inline-flex items-center gap-2 mb-4">
+              <Database className="w-6 h-6 text-primary" />
+              <h2 className="font-display text-3xl text-foreground">Where Do We Get Our Data?</h2>
+            </div>
+            <p className="text-muted-foreground">
+              Our environmental data comes from <strong className="text-foreground">CalEnviroScreen 5.0</strong>, a tool developed by the California Office of Environmental Health Hazard Assessment (OEHHA). It identifies communities most affected by pollution and vulnerability using 21 indicators across pollution burden and population characteristics.
+            </p>
+          </div>
+          <div className="card-soft max-w-4xl mx-auto">
+            <h3 className="font-display text-lg text-foreground mb-3 flex items-center gap-2">
+              🗺️ CalEnviroScreen 5.0 — Environmental Burden Map
+            </h3>
+            <p className="text-sm text-muted-foreground mb-4">
+              Explore environmental health data for communities across California. This interactive map shows pollution burden and population vulnerability by census tract.
+            </p>
+            <div className="rounded-xl overflow-hidden border border-border" style={{ height: "500px" }}>
+              <iframe
+                src="https://experience.arcgis.com/experience/8c5c5c91ebb8481a8a3d92c897faf8ed/page/Overall-Results"
+                title="CalEnviroScreen 5.0"
+                className="w-full h-full border-0"
+                allowFullScreen
+                loading="lazy"
+              />
+            </div>
+            <div className="mt-4 flex flex-wrap gap-3 justify-center">
+              <a
+                href="https://oehha.ca.gov/calenviroscreen/report/calenviroscreen-40"
+                target="_blank"
+                rel="noreferrer"
+                className="text-sm text-primary font-semibold hover:underline"
+              >
+                Learn more about CalEnviroScreen →
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <footer className="border-t border-border py-8 bg-card">
         <div className="section-container text-center text-sm text-muted-foreground">
           <p className="font-display text-base text-foreground mb-1">CommPass</p>
