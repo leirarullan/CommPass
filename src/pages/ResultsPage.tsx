@@ -13,6 +13,7 @@ import AddResourceForm from "@/components/AddResourceForm";
 import AIChatBox from "@/components/AIChatBox";
 import ResourceDetailDialog from "@/components/ResourceDetailDialog";
 import UCLinksSection from "@/components/UCLinksSection";
+import CommunityComparison from "@/components/CommunityComparison";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
 import { useAuth } from "@/contexts/AuthContext";
@@ -353,6 +354,9 @@ const ResultsPage = () => {
             )}
           </div>
         </div>
+
+        {/* Compare Your Community */}
+        <CommunityComparison data={data} />
 
         {/* UC Links Programs */}
         <UCLinksSection programs={ucLinksPrograms} allPrograms={allUCLinksPrograms} />
