@@ -226,13 +226,47 @@ const ResourceDetailDialog = ({ resource, open, onOpenChange, onAddReview, user,
                 <ShieldCheck className="w-3 h-3" /> Reviews are filtered by AI moderation before publishing.
               </p>
             </div>
+          ) : skippedAuth ? (
+            <div className="space-y-2">
+              <p className="text-xs text-muted-foreground">
+                Posting as <strong className="text-foreground">Anonymous</strong> (no verified badge)
+              </p>
+              <div className="flex gap-2">
+                <textarea
+                  ref={inputRef}
+                  placeholder="Write a review…"
+                  value={reviewText}
+                  onChange={(e) => setReviewText(e.target.value)}
+                  rows={2}
+                  className="flex-1 text-sm rounded-xl border border-border bg-background px-3 py-2 resize-none focus:outline-none focus:ring-2 focus:ring-primary"
+                />
+                <button
+                  onClick={handleSubmitReview}
+                  disabled={!reviewText.trim()}
+                  className="btn-primary self-end px-3 py-2 disabled:opacity-40"
+                >
+                  <Send className="w-4 h-4" />
+                </button>
+              </div>
+              <p className="text-[10px] text-muted-foreground flex items-center gap-1">
+                <ShieldCheck className="w-3 h-3" /> Reviews are filtered by AI moderation before publishing.
+              </p>
+            </div>
           ) : (
-            <button
-              onClick={() => onRequestAuth?.()}
-              className="btn-primary text-sm py-2 w-full"
-            >
-              Sign in to leave a review
-            </button>
+            <div className="space-y-2">
+              <button
+                onClick={() => onRequestAuth?.()}
+                className="btn-primary text-sm py-2 w-full"
+              >
+                Sign in to leave a verified review
+              </button>
+              <button
+                onClick={() => setSkippedAuth(true)}
+                className="text-sm text-muted-foreground hover:text-foreground transition-colors w-full text-center"
+              >
+                Skip and leave a review anyway →
+              </button>
+            </div>
           )}
         </div>
       </div>
