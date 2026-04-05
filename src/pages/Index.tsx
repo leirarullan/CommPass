@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Search, Compass, BookOpen, Users, Wifi, GraduationCap, ArrowRight, Heart, Sparkles } from "lucide-react";
+import { Search, Compass, BookOpen, Users, Wifi, GraduationCap, ArrowRight, Heart, Sparkles, Database } from "lucide-react";
 import { getAllUCLinksPrograms } from "@/data/ucLinksPrograms";
 import UCLinksSection from "@/components/UCLinksSection";
 
