@@ -77,6 +77,28 @@ export const ZIP_DATA: Record<string, ZipData> = {
   "90220": { zip: "90220", lat: 33.8958, lng: -118.2201, city: "Compton", percentile: 92, pollutionFactors: ["diesel emissions", "traffic density", "lead exposure"], accessIssues: ["limited park access", "underfunded schools", "few community centers"] },
   // Pomona
   "91766": { zip: "91766", lat: 34.0585, lng: -117.7493, city: "Pomona", percentile: 84, pollutionFactors: ["traffic density", "groundwater contamination", "PM2.5"], accessIssues: ["limited tutoring", "language barriers", "digital divide"] },
+  // Del Mar
+  "92014": { zip: "92014", lat: 32.9595, lng: -117.2653, city: "Del Mar", percentile: 25, pollutionFactors: ["traffic density", "ozone levels"], accessIssues: ["high housing costs", "limited public transit"] },
+  // Carmel-by-the-Sea
+  "93921": { zip: "93921", lat: 36.5552, lng: -121.9233, city: "Carmel-by-the-Sea", percentile: 20, pollutionFactors: ["ozone levels", "wildfire risk"], accessIssues: ["high housing costs", "limited public transit", "few free programs"] },
+  // Santa Barbara
+  "93101": { zip: "93101", lat: 34.4208, lng: -119.6982, city: "Santa Barbara", percentile: 55, pollutionFactors: ["traffic density", "ozone levels", "wildfire risk"], accessIssues: ["high housing costs", "limited affordable childcare", "language barriers"] },
+  // Malibu
+  "90265": { zip: "90265", lat: 34.0259, lng: -118.7798, city: "Malibu", percentile: 30, pollutionFactors: ["wildfire risk", "ozone levels"], accessIssues: ["high housing costs", "limited public transit", "few free programs"] },
+  // Palo Alto
+  "94301": { zip: "94301", lat: 37.4419, lng: -122.1430, city: "Palo Alto", percentile: 35, pollutionFactors: ["traffic density", "air toxics"], accessIssues: ["high housing costs", "limited affordable childcare"] },
+  // Cupertino
+  "95014": { zip: "95014", lat: 37.3230, lng: -122.0322, city: "Cupertino", percentile: 32, pollutionFactors: ["traffic density", "ozone levels"], accessIssues: ["high housing costs", "language access", "limited free programs"] },
+  // Los Altos
+  "94022": { zip: "94022", lat: 37.3852, lng: -122.1141, city: "Los Altos", percentile: 22, pollutionFactors: ["traffic density", "ozone levels"], accessIssues: ["high housing costs", "limited public transit"] },
+  // Irvine
+  "92618": { zip: "92618", lat: 33.6846, lng: -117.7712, city: "Irvine", percentile: 40, pollutionFactors: ["traffic density", "ozone levels", "air toxics"], accessIssues: ["high housing costs", "limited public transit", "language access"] },
+  // Folsom
+  "95630": { zip: "95630", lat: 38.6780, lng: -121.1761, city: "Folsom", percentile: 28, pollutionFactors: ["ozone levels", "wildfire risk"], accessIssues: ["limited public transit", "few free programs"] },
+  // Rocklin
+  "95765": { zip: "95765", lat: 38.7907, lng: -121.2358, city: "Rocklin", percentile: 26, pollutionFactors: ["ozone levels", "wildfire risk"], accessIssues: ["limited public transit", "few free programs"] },
+  // Saratoga
+  "95070": { zip: "95070", lat: 37.2638, lng: -122.0230, city: "Saratoga", percentile: 24, pollutionFactors: ["traffic density", "ozone levels"], accessIssues: ["high housing costs", "limited public transit", "few free programs"] },
 };
 
 // City name → representative ZIP lookup
@@ -103,6 +125,17 @@ const CITY_TO_ZIP: Record<string, string> = {
   "west fresno": "93706", "downtown fresno": "93721",
   "fruitvale": "94601", "deep east oakland": "94621",
   "east san jose": "95116",
+  "del mar": "92014",
+  "carmel-by-the-sea": "93921", "carmel": "93921",
+  "santa barbara": "93101",
+  "malibu": "90265",
+  "palo alto": "94301",
+  "cupertino": "95014",
+  "los altos": "94022",
+  "irvine": "92618",
+  "folsom": "95630",
+  "rocklin": "95765",
+  "saratoga": "95070",
 };
 
 export function lookupCityToZip(query: string): string | null {
