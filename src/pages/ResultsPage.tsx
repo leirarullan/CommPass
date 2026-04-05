@@ -227,13 +227,6 @@ const ResultsPage = () => {
         )}
       </div>
 
-      {/* Resource Detail Dialog */}
-      <ResourceDetailDialog
-        resource={selectedResource}
-        open={detailOpen}
-        onOpenChange={setDetailOpen}
-        onAddReview={handleAddReview}
-      />
 
       {/* AI Chat */}
       <AIChatBox />
