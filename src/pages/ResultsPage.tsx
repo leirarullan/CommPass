@@ -158,6 +158,15 @@ const ResultsPage = () => {
     setShowAddForm(false);
   };
 
+  const handleDeleteCommunityResource = (id: string) => {
+    setCommunityResources((prev) => prev.filter((r) => r.id !== id));
+    if (selectedResource?.id === id) {
+      setSelectedResource(null);
+      setDetailOpen(false);
+    }
+    toast.success("Community resource deleted.");
+  };
+
   const handleSelectResource = (r: Resource) => {
     setSelectedResource(r);
     setDetailOpen(true);
