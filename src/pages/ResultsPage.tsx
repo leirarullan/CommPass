@@ -182,7 +182,6 @@ const ResultsPage = () => {
             <ArrowLeft className="w-4 h-4" /> Back
           </button>
           <button onClick={() => navigate("/")} className="flex items-center gap-2 hover:opacity-80 transition-opacity">
-            <img src={logo} alt="CommPass logo" className="w-8 h-8" />
             <span className="font-display text-xl text-foreground">Comm<span className="text-primary">Pass</span></span>
           </button>
           <div className="w-16" />

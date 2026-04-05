@@ -33,7 +33,6 @@ const Index = () => {
       {/* Header */}
       <header className="border-b border-border bg-card/80 backdrop-blur-sm sticky top-0 z-50">
         <div className="section-container flex items-center gap-2 py-3">
-          <img src={logo} alt="CommPass logo" className="w-8 h-8" />
           <span className="font-display text-xl text-foreground">Comm<span className="text-primary">Pass</span></span>
         </div>
       </header>
