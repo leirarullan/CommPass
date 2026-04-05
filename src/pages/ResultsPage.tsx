@@ -5,6 +5,7 @@ import { getZipData, getResourcesForZip, generateCommunityExplanation, type Reso
 import { SD_LIBRARIES } from "@/data/sdLibraries";
 import { LA_LIBRARIES } from "@/data/laLibraries";
 import { FRESNO_LIBRARIES } from "@/data/fresnoLibraries";
+import { getUCLinksProgramsForCity, getUCLinksResourcesForCity, getAllUCLinksPrograms } from "@/data/ucLinksPrograms";
 import ResourceMap from "@/components/ResourceMap";
 import ResourceList from "@/components/ResourceList";
 import FilterBar from "@/components/FilterBar";
