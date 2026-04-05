@@ -91,6 +91,8 @@ const LocationSearch = ({ city, zip, percentile, onNavigate }: { city: string; z
 const ResultsPage = () => {
   const { zip } = useParams<{ zip: string }>();
   const navigate = useNavigate();
+  const { user, profile, signOut } = useAuth();
+  const [showAuth, setShowAuth] = useState(false);
   const data = getZipData(zip || "");
   const mockResources = getResourcesForZip(zip || "");
   const sdAreaCities = ["San Diego", "National City", "Chula Vista", "San Ysidro"];
