@@ -261,6 +261,7 @@ const ResultsPage = () => {
               resources={filtered}
               selected={selectedResource}
               onSelect={handleSelectResource}
+              percentile={data.percentile}
             />
           </div>
           <div className="lg:col-span-2 relative">
