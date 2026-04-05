@@ -1,10 +1,13 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Search, Compass, BookOpen, Users, Wifi, GraduationCap, ArrowRight, Heart, Sparkles } from "lucide-react";
+import { getAllUCLinksPrograms } from "@/data/ucLinksPrograms";
+import UCLinksSection from "@/components/UCLinksSection";
 
 const Index = () => {
   const [zip, setZip] = useState("");
   const navigate = useNavigate();
+  const allPrograms = getAllUCLinksPrograms();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -82,27 +85,7 @@ const Index = () => {
       {/* UC Links */}
       <section className="bg-blue-light/40 py-16">
         <div className="section-container">
-          <div className="max-w-3xl mx-auto text-center mb-8">
-            <div className="inline-flex items-center gap-2 mb-4">
-              <GraduationCap className="w-6 h-6 text-primary" />
-              <h2 className="font-display text-3xl text-foreground">UC Links</h2>
-            </div>
-            <p className="text-muted-foreground">
-              UC Links is a University of California network connecting university students with K-12 youth in underserved communities. Through after-school programs, digital literacy workshops, and mentoring, UC Links bridges the gap between higher education and the communities that need it most.
-            </p>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-2xl mx-auto">
-            {[
-              { name: "UC Links Digital Storytelling Lab", city: "Los Angeles", desc: "Teens learn digital media creation, video editing, and storytelling with UC mentors." },
-              { name: "UC Links Youth STEM Program", city: "Fresno", desc: "Hands-on science and coding workshops for underserved students, led by UC students." },
-            ].map((p) => (
-              <div key={p.name} className="card-soft">
-                <span className="text-xs font-bold text-secondary uppercase tracking-wider">{p.city}</span>
-                <h4 className="font-display text-lg text-foreground mt-1">{p.name}</h4>
-                <p className="text-sm text-muted-foreground mt-2">{p.desc}</p>
-              </div>
-            ))}
-          </div>
+          <UCLinksSection programs={[]} allPrograms={allPrograms} />
         </div>
       </section>
 
