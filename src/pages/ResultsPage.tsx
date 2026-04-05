@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { ArrowLeft, Sparkles, Search, Edit2, LogIn, LogOut, CheckCircle2 } from "lucide-react";
+import { ArrowLeft, Sparkles, Search, Edit2, LogIn, LogOut, CheckCircle2, Trash2 } from "lucide-react";
 import { getZipData, getResourcesForZip, generateCommunityExplanation, lookupCityToZip, type Resource, type ResourceCategory, type CommunityReview } from "@/data/mockResources";
 import { SD_LIBRARIES } from "@/data/sdLibraries";
 import { LA_LIBRARIES } from "@/data/laLibraries";
