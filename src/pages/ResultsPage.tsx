@@ -305,6 +305,9 @@ const ResultsPage = () => {
                 open={detailOpen}
                 onOpenChange={setDetailOpen}
                 onAddReview={handleAddReview}
+                user={user}
+                profile={profile}
+                onRequestAuth={() => setShowAuth(true)}
               />
             ) : (
               <ResourceList
