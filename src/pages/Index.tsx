@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Search, Compass, BookOpen, Users, Wifi, GraduationCap, ArrowRight, Heart, Sparkles, Database } from "lucide-react";
+import { Search, Compass, BookOpen, Users, Wifi, GraduationCap, ArrowRight, Heart, Sparkles, Database, LogIn, LogOut, CheckCircle2 } from "lucide-react";
 import { getAllUCLinksPrograms } from "@/data/ucLinksPrograms";
 import { lookupCityToZip } from "@/data/mockResources";
 import UCLinksSection from "@/components/UCLinksSection";
+import { useAuth } from "@/contexts/AuthContext";
+import AuthModal from "@/components/AuthModal";
 
 const Index = () => {
   const [query, setQuery] = useState("");
