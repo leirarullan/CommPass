@@ -269,8 +269,12 @@ const ResultsPage = () => {
                 </Label>
               </div>
             </div>
-            <button onClick={() => setShowAddForm(!showAddForm)} className="btn-accent text-sm py-2 px-4">
+            <button onClick={() => {
+              if (!user) { setShowAuth(true); toast.info("Sign in to add a resource."); return; }
+              setShowAddForm(!showAddForm);
+            }} className="btn-accent text-sm py-2 px-4">
               + Add a Resource
+            </button>
             </button>
           </div>
         </div>
