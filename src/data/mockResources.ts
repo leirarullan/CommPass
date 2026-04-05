@@ -99,6 +99,83 @@ export const ZIP_DATA: Record<string, ZipData> = {
   "95765": { zip: "95765", lat: 38.7907, lng: -121.2358, city: "Rocklin", percentile: 26, pollutionFactors: ["ozone levels", "wildfire risk"], accessIssues: ["limited public transit", "few free programs"] },
   // Saratoga
   "95070": { zip: "95070", lat: 37.2638, lng: -122.0230, city: "Saratoga", percentile: 24, pollutionFactors: ["traffic density", "ozone levels"], accessIssues: ["high housing costs", "limited public transit", "few free programs"] },
+  // Orange County
+  "92701": { zip: "92701", lat: 33.7455, lng: -117.8677, city: "Santa Ana", percentile: 93, pollutionFactors: ["traffic density", "diesel emissions", "toxic releases"], accessIssues: ["overcrowded schools", "language barriers", "limited park access"] },
+  "92705": { zip: "92705", lat: 33.7700, lng: -117.8311, city: "Santa Ana", percentile: 88, pollutionFactors: ["traffic density", "air toxics", "diesel emissions"], accessIssues: ["language barriers", "limited tutoring", "digital divide"] },
+  "92703": { zip: "92703", lat: 33.7530, lng: -117.8890, city: "Santa Ana", percentile: 91, pollutionFactors: ["traffic density", "diesel emissions", "PM2.5"], accessIssues: ["overcrowded schools", "language barriers", "limited park access"] },
+  "92804": { zip: "92804", lat: 33.8200, lng: -117.9620, city: "Anaheim", percentile: 82, pollutionFactors: ["traffic density", "diesel emissions", "PM2.5"], accessIssues: ["language barriers", "limited tutoring", "overcrowded schools"] },
+  "92802": { zip: "92802", lat: 33.8085, lng: -117.9228, city: "Anaheim", percentile: 78, pollutionFactors: ["traffic density", "diesel emissions", "air toxics"], accessIssues: ["language barriers", "limited free programs", "digital divide"] },
+  "92832": { zip: "92832", lat: 33.8703, lng: -117.9253, city: "Fullerton", percentile: 65, pollutionFactors: ["traffic density", "air toxics", "ozone levels"], accessIssues: ["limited affordable housing", "language barriers"] },
+  "92840": { zip: "92840", lat: 33.7678, lng: -117.9981, city: "Garden Grove", percentile: 80, pollutionFactors: ["traffic density", "diesel emissions", "air toxics"], accessIssues: ["language barriers", "limited tutoring", "digital divide"] },
+  "90630": { zip: "90630", lat: 33.8447, lng: -118.0395, city: "Cypress", percentile: 50, pollutionFactors: ["traffic density", "ozone levels"], accessIssues: ["limited public transit", "few free programs"] },
+  "92683": { zip: "92683", lat: 33.7514, lng: -117.9939, city: "Westminster", percentile: 72, pollutionFactors: ["traffic density", "diesel emissions", "air toxics"], accessIssues: ["language barriers", "limited tutoring", "digital divide"] },
+  "92647": { zip: "92647", lat: 33.7175, lng: -117.9981, city: "Huntington Beach", percentile: 45, pollutionFactors: ["traffic density", "ozone levels"], accessIssues: ["high housing costs", "limited public transit"] },
+  // Long Beach
+  "90813": { zip: "90813", lat: 33.7838, lng: -118.1875, city: "Long Beach", percentile: 91, pollutionFactors: ["diesel emissions", "port pollution", "traffic density"], accessIssues: ["overcrowded schools", "limited park access", "digital divide"] },
+  "90805": { zip: "90805", lat: 33.8636, lng: -118.1892, city: "Long Beach", percentile: 87, pollutionFactors: ["diesel emissions", "traffic density", "PM2.5"], accessIssues: ["limited tutoring", "digital divide", "few libraries"] },
+  // Inglewood / Hawthorne
+  "90301": { zip: "90301", lat: 33.9617, lng: -118.3531, city: "Inglewood", percentile: 85, pollutionFactors: ["traffic density", "diesel emissions", "air toxics"], accessIssues: ["limited park access", "underfunded schools", "digital divide"] },
+  "90250": { zip: "90250", lat: 33.9164, lng: -118.3526, city: "Hawthorne", percentile: 83, pollutionFactors: ["traffic density", "diesel emissions", "air toxics"], accessIssues: ["limited tutoring", "underfunded schools", "digital divide"] },
+  // Pasadena / Glendale
+  "91101": { zip: "91101", lat: 34.1478, lng: -118.1445, city: "Pasadena", percentile: 60, pollutionFactors: ["traffic density", "ozone levels", "air toxics"], accessIssues: ["high housing costs", "limited affordable childcare"] },
+  "91201": { zip: "91201", lat: 34.1703, lng: -118.2600, city: "Glendale", percentile: 62, pollutionFactors: ["traffic density", "air toxics", "ozone levels"], accessIssues: ["high housing costs", "language barriers"] },
+  // Oxnard / Ventura
+  "93030": { zip: "93030", lat: 34.1975, lng: -119.1771, city: "Oxnard", percentile: 85, pollutionFactors: ["pesticide use", "diesel emissions", "PM2.5"], accessIssues: ["language barriers", "limited tutoring", "overcrowded schools"] },
+  "93001": { zip: "93001", lat: 34.2805, lng: -119.2945, city: "Ventura", percentile: 55, pollutionFactors: ["ozone levels", "traffic density", "wildfire risk"], accessIssues: ["high housing costs", "limited public transit"] },
+  // Salinas / Monterey
+  "93905": { zip: "93905", lat: 36.6547, lng: -121.6319, city: "Salinas", percentile: 90, pollutionFactors: ["pesticide use", "PM2.5", "groundwater threats"], accessIssues: ["language barriers", "limited tutoring", "lack of broadband"] },
+  "93940": { zip: "93940", lat: 36.6002, lng: -121.8947, city: "Monterey", percentile: 40, pollutionFactors: ["traffic density", "ozone levels"], accessIssues: ["high housing costs", "limited public transit"] },
+  // Modesto / Merced
+  "95351": { zip: "95351", lat: 37.6391, lng: -120.9969, city: "Modesto", percentile: 84, pollutionFactors: ["PM2.5", "pesticide use", "diesel emissions"], accessIssues: ["limited tutoring", "digital divide", "few community centers"] },
+  "95340": { zip: "95340", lat: 37.3022, lng: -120.4830, city: "Merced", percentile: 86, pollutionFactors: ["pesticide use", "PM2.5", "groundwater threats"], accessIssues: ["lack of broadband", "limited tutoring", "language barriers"] },
+  // Visalia / Tulare
+  "93291": { zip: "93291", lat: 36.3302, lng: -119.2921, city: "Visalia", percentile: 80, pollutionFactors: ["PM2.5", "pesticide use", "ozone"], accessIssues: ["limited public transit", "few libraries", "digital divide"] },
+  // Redding / Chico
+  "96001": { zip: "96001", lat: 40.5865, lng: -122.3917, city: "Redding", percentile: 50, pollutionFactors: ["wildfire smoke", "ozone levels", "PM2.5"], accessIssues: ["limited public transit", "lack of broadband", "few free programs"] },
+  "95928": { zip: "95928", lat: 39.7285, lng: -121.8375, city: "Chico", percentile: 55, pollutionFactors: ["wildfire smoke", "PM2.5", "ozone levels"], accessIssues: ["limited public transit", "high housing costs"] },
+  // Eureka
+  "95501": { zip: "95501", lat: 40.8021, lng: -124.1637, city: "Eureka", percentile: 48, pollutionFactors: ["cleanup sites", "diesel emissions", "PM2.5"], accessIssues: ["lack of broadband", "limited public transit", "few free programs"] },
+  // Santa Cruz
+  "95060": { zip: "95060", lat: 36.9741, lng: -122.0308, city: "Santa Cruz", percentile: 45, pollutionFactors: ["traffic density", "ozone levels", "wildfire risk"], accessIssues: ["high housing costs", "limited public transit"] },
+  // San Luis Obispo
+  "93401": { zip: "93401", lat: 35.2828, lng: -120.6596, city: "San Luis Obispo", percentile: 38, pollutionFactors: ["ozone levels", "traffic density"], accessIssues: ["high housing costs", "limited public transit"] },
+  // Palm Springs / Coachella
+  "92262": { zip: "92262", lat: 33.8303, lng: -116.5453, city: "Palm Springs", percentile: 60, pollutionFactors: ["ozone", "PM2.5", "extreme heat"], accessIssues: ["limited public transit", "digital divide", "few free programs"] },
+  "92236": { zip: "92236", lat: 33.6804, lng: -116.1739, city: "Coachella", percentile: 95, pollutionFactors: ["pesticide use", "PM2.5", "drinking water contaminants"], accessIssues: ["language barriers", "lack of broadband", "limited tutoring"] },
+  // El Centro / Imperial
+  "92243": { zip: "92243", lat: 32.7920, lng: -115.5631, city: "El Centro", percentile: 92, pollutionFactors: ["pesticide use", "PM2.5", "drinking water contaminants"], accessIssues: ["language barriers", "lack of broadband", "limited tutoring"] },
+  // Torrance / Carson
+  "90501": { zip: "90501", lat: 33.8311, lng: -118.3267, city: "Torrance", percentile: 65, pollutionFactors: ["traffic density", "diesel emissions", "air toxics"], accessIssues: ["limited public transit", "few free programs"] },
+  "90745": { zip: "90745", lat: 33.8292, lng: -118.2615, city: "Carson", percentile: 88, pollutionFactors: ["diesel emissions", "toxic releases", "traffic density"], accessIssues: ["limited park access", "digital divide", "few community centers"] },
+  // Downey / Norwalk
+  "90241": { zip: "90241", lat: 33.9401, lng: -118.1332, city: "Downey", percentile: 78, pollutionFactors: ["traffic density", "diesel emissions", "PM2.5"], accessIssues: ["limited tutoring", "digital divide"] },
+  "90650": { zip: "90650", lat: 33.9022, lng: -118.0817, city: "Norwalk", percentile: 76, pollutionFactors: ["traffic density", "diesel emissions", "air toxics"], accessIssues: ["limited tutoring", "digital divide", "few libraries"] },
+  // El Monte / West Covina
+  "91731": { zip: "91731", lat: 34.0686, lng: -118.0276, city: "El Monte", percentile: 87, pollutionFactors: ["traffic density", "groundwater contamination", "diesel emissions"], accessIssues: ["language barriers", "limited tutoring", "overcrowded schools"] },
+  "91790": { zip: "91790", lat: 34.0686, lng: -117.9390, city: "West Covina", percentile: 68, pollutionFactors: ["traffic density", "air toxics", "ozone levels"], accessIssues: ["limited public transit", "language barriers"] },
+  // Ontario / Fontana
+  "91761": { zip: "91761", lat: 34.0633, lng: -117.6509, city: "Ontario", percentile: 85, pollutionFactors: ["PM2.5", "diesel emissions", "ozone"], accessIssues: ["limited tutoring", "digital divide", "few libraries"] },
+  "92335": { zip: "92335", lat: 34.0922, lng: -117.4350, city: "Fontana", percentile: 88, pollutionFactors: ["PM2.5", "diesel emissions", "ozone"], accessIssues: ["limited tutoring", "overcrowded schools", "digital divide"] },
+  // Escondido / Oceanside
+  "92025": { zip: "92025", lat: 33.1192, lng: -117.0864, city: "Escondido", percentile: 75, pollutionFactors: ["traffic density", "ozone levels", "diesel emissions"], accessIssues: ["language barriers", "limited tutoring", "digital divide"] },
+  "92054": { zip: "92054", lat: 33.1959, lng: -117.3795, city: "Oceanside", percentile: 58, pollutionFactors: ["traffic density", "ozone levels"], accessIssues: ["limited public transit", "few free programs"] },
+  // Vallejo / Richmond
+  "94590": { zip: "94590", lat: 38.1041, lng: -122.2566, city: "Vallejo", percentile: 84, pollutionFactors: ["diesel emissions", "cleanup sites", "PM2.5"], accessIssues: ["limited tutoring", "digital divide", "few community centers"] },
+  "94801": { zip: "94801", lat: 37.9358, lng: -122.3477, city: "Richmond", percentile: 92, pollutionFactors: ["diesel emissions", "toxic releases", "PM2.5"], accessIssues: ["limited tutoring", "overcrowded schools", "digital divide"] },
+  // Antioch / Pittsburg
+  "94509": { zip: "94509", lat: 38.0049, lng: -121.8058, city: "Antioch", percentile: 78, pollutionFactors: ["diesel emissions", "ozone", "PM2.5"], accessIssues: ["limited public transit", "digital divide", "few libraries"] },
+  // Santa Rosa / Napa
+  "95401": { zip: "95401", lat: 38.4405, lng: -122.7141, city: "Santa Rosa", percentile: 52, pollutionFactors: ["wildfire risk", "traffic density", "ozone levels"], accessIssues: ["high housing costs", "limited public transit"] },
+  "94559": { zip: "94559", lat: 38.2975, lng: -122.2869, city: "Napa", percentile: 48, pollutionFactors: ["pesticide use", "traffic density", "ozone levels"], accessIssues: ["high housing costs", "language barriers"] },
+  // Davis / Woodland
+  "95616": { zip: "95616", lat: 38.5449, lng: -121.7405, city: "Davis", percentile: 30, pollutionFactors: ["pesticide use", "traffic density"], accessIssues: ["high housing costs", "limited affordable childcare"] },
+  // Santa Maria / Lompoc
+  "93454": { zip: "93454", lat: 34.9530, lng: -120.4357, city: "Santa Maria", percentile: 82, pollutionFactors: ["pesticide use", "PM2.5", "ozone"], accessIssues: ["language barriers", "limited tutoring", "lack of broadband"] },
+  // Clovis
+  "93612": { zip: "93612", lat: 36.8252, lng: -119.6831, city: "Clovis", percentile: 55, pollutionFactors: ["PM2.5", "ozone", "pesticide use"], accessIssues: ["limited public transit", "few free programs"] },
+  // Beverly Hills / Santa Monica
+  "90210": { zip: "90210", lat: 34.0901, lng: -118.4065, city: "Beverly Hills", percentile: 18, pollutionFactors: ["traffic density", "ozone levels"], accessIssues: ["high housing costs"] },
+  "90401": { zip: "90401", lat: 34.0195, lng: -118.4912, city: "Santa Monica", percentile: 30, pollutionFactors: ["traffic density", "ozone levels"], accessIssues: ["high housing costs", "limited public transit"] },
 };
 
 // City name → representative ZIP lookup
@@ -136,6 +213,54 @@ const CITY_TO_ZIP: Record<string, string> = {
   "folsom": "95630",
   "rocklin": "95765",
   "saratoga": "95070",
+  // New cities
+  "santa ana": "92701",
+  "anaheim": "92804",
+  "fullerton": "92832",
+  "garden grove": "92840",
+  "cypress": "90630",
+  "westminster": "92683",
+  "huntington beach": "92647",
+  "long beach": "90813",
+  "inglewood": "90301",
+  "hawthorne": "90250",
+  "pasadena": "91101",
+  "glendale": "91201",
+  "oxnard": "93030",
+  "ventura": "93001",
+  "salinas": "93905",
+  "monterey": "93940",
+  "modesto": "95351",
+  "merced": "95340",
+  "visalia": "93291",
+  "redding": "96001",
+  "chico": "95928",
+  "eureka": "95501",
+  "santa cruz": "95060",
+  "san luis obispo": "93401", "slo": "93401",
+  "palm springs": "92262",
+  "coachella": "92236",
+  "el centro": "92243",
+  "torrance": "90501",
+  "carson": "90745",
+  "downey": "90241",
+  "norwalk": "90650",
+  "el monte": "91731",
+  "west covina": "91790",
+  "ontario": "91761",
+  "fontana": "92335",
+  "escondido": "92025",
+  "oceanside": "92054",
+  "vallejo": "94590",
+  "richmond": "94801",
+  "antioch": "94509",
+  "santa rosa": "95401",
+  "napa": "94559",
+  "davis": "95616",
+  "santa maria": "93454",
+  "clovis": "93612",
+  "beverly hills": "90210",
+  "santa monica": "90401",
 };
 
 export function lookupCityToZip(query: string): string | null {
