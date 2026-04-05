@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { ArrowLeft, Sparkles, Search, Edit2 } from "lucide-react";
+import { ArrowLeft, Sparkles, Search, Edit2, LogIn, LogOut, CheckCircle2 } from "lucide-react";
 import { getZipData, getResourcesForZip, generateCommunityExplanation, lookupCityToZip, type Resource, type ResourceCategory, type CommunityReview } from "@/data/mockResources";
 import { SD_LIBRARIES } from "@/data/sdLibraries";
 import { LA_LIBRARIES } from "@/data/laLibraries";
@@ -15,6 +15,9 @@ import ResourceDetailDialog from "@/components/ResourceDetailDialog";
 import UCLinksSection from "@/components/UCLinksSection";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
+import { useAuth } from "@/contexts/AuthContext";
+import AuthModal from "@/components/AuthModal";
+import { toast } from "sonner";
 
 const STORAGE_KEY = "cg_community_resources";
 const REVIEWS_KEY = "cg_resource_reviews";
