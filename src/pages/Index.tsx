@@ -2,17 +2,29 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Search, Compass, BookOpen, Users, Wifi, GraduationCap, ArrowRight, Heart, Sparkles, Database } from "lucide-react";
 import { getAllUCLinksPrograms } from "@/data/ucLinksPrograms";
+import { lookupCityToZip } from "@/data/mockResources";
 import UCLinksSection from "@/components/UCLinksSection";
 
 const Index = () => {
-  const [zip, setZip] = useState("");
+  const [query, setQuery] = useState("");
   const navigate = useNavigate();
   const allPrograms = getAllUCLinksPrograms();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (zip.trim().length >= 5) {
-      navigate(`/results/${zip.trim()}`);
+    const trimmed = query.trim();
+    if (!trimmed) return;
+    
+    // Check if it's a ZIP code (all digits, 5 chars)
+    if (/^\d{5}$/.test(trimmed)) {
+      navigate(`/results/${trimmed}`);
+      return;
+    }
+    
+    // Try city name lookup
+    const zip = lookupCityToZip(trimmed);
+    if (zip) {
+      navigate(`/results/${zip}`);
     }
   };
 
